@@ -10,6 +10,6 @@
 .key-value-pair::after { content: ","; }
 .key-value-pair:last-of-type::after { content: none; }
 
-.b .ba .value { color: orange; }
-.b .bb { color: red; }
-.b .bc { color: green; }
+.validation-wrong-type { color: orange; }
+.validation-missing { color: red; }
+.validation-additional { color: green; }
