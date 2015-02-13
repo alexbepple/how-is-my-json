@@ -1,0 +1,15 @@
+.type-object::before { content: "{"; }
+.type-object::after { content: "}"; }
+.key::after { content: ":"; }
+
+.key-value-pair { 
+    display: block;
+    padding-left: 20px;
+}
+
+.key-value-pair::after { content: ","; }
+.key-value-pair:last-of-type::after { content: none; }
+
+.b .ba .value { color: orange; }
+.b .bb { color: red; }
+.b .bc { color: green; }
