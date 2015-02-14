@@ -14,10 +14,6 @@ var schema = {
                     "type": "integer", 
                     "required": true
                 }, 
-                "baa": {
-                    "type": "boolean", 
-                    "required": true
-                }, 
                 "bb": {
                     "type": "string", 
                     "required": true
@@ -31,7 +27,6 @@ var json = {
     "a": "foo", 
     "b": {
         "ba": "wrong type", 
-        "baa": "string instead of boolean",
         "bc": "additional"
     }
 };
