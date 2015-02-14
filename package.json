@@ -1,7 +1,7 @@
 {
-  "private": true,
-  "dependencies": {
-    "is-my-json-valid": "^2.7.0",
-    "ramda": "^0.9.1"
-  }
+	"private": true,
+	"dependencies": {
+		"is-my-json-valid": "^2.7.0",
+		"ramda": "^0.9.1"
+	}
 }
