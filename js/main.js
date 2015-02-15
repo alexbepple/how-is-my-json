@@ -32,7 +32,7 @@ var json = {
 };
 
 var validator = require('is-my-json-valid');
-var validate = validator(schema);
+var validate = validator(schema, {verbose: true});
 validate(json);
 
 var r = require('ramda');
@@ -56,8 +56,65 @@ var selectorsMissing = r.pipe(
     r.map(pathComponentsToSelector)
 )(validate.errors);
 
+var hasAdditionalProperties = r.propEq('message', 'has additional properties');
+var objectPathToSchemaPath = r.converge(
+    r.pipe(
+        r.zip,
+        r.flatten,
+        r.append('properties'),
+        r.join('.')
+    ),
+    r.pipe(
+        r.split('.'),
+        r.length,
+        r.times(r.identity),
+        r.map(function(){return 'properties';})
+    ),
+    r.split('.')
+);
+var propertiesInSchemaUnderPath = r.pipe(
+    objectPathToSchemaPath,
+    r.flip(r.path)(schema),
+    r.keys
+);
+var propertiesInObjectUnderPath = r.pipe(
+    r.flip(r.path)(json),
+    r.keys
+);
+var definedPaths = r.pipe(
+    r.converge(
+        r.xprod,
+        r.of,
+        propertiesInSchemaUnderPath
+    ),
+    r.map(r.join('.'))
+);
+var actualPaths = r.pipe(
+    r.converge(
+        r.xprod,
+        r.of,
+        propertiesInObjectUnderPath
+    ),
+    r.map(r.join('.'))
+);
+var pathsOfAdditionalPropertiesOf = r.converge(
+    r.difference,
+    actualPaths,
+    definedPaths
+);
+
+var selectorsAdditional = r.pipe(
+    r.filter(hasAdditionalProperties),
+    r.map(errorToPathComponents),
+    r.map(r.join('.')),
+    r.map(pathsOfAdditionalPropertiesOf),
+    r.flatten,
+    r.map(r.split('.')),
+    r.map(pathComponentsToSelector)
+)(validate.errors);
+
 
 $(r.join(',', selectorsWrongType)).addClass('validation-wrong-type');
 $(r.join(',', selectorsMissing)).addClass('validation-missing');
-$('.b .bc').addClass('validation-additional');
+$(r.join(',', selectorsAdditional)).addClass('validation-additional');
 
