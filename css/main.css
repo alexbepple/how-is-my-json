@@ -1,16 +1,23 @@
-.type-object::before { content: '{'; }
-.type-object::after { content: '}'; }
+.value.type-object::before { content: '{'; }
+.value.type-object::after { content: '}'; }
 
-.type-string::before { content: '"'; }
-.type-string::after { content: '"'; }
+.value.type-array::before { content: '['; }
+.value.type-array::after { content: ']'; }
+
+.value.type-string::before { content: '"'; }
+.value.type-string::after { content: '"'; }
+
+.value.null, .value.type-boolean { font-style: italic; }
 
 .key::after { content: ': '; }
 
-.key-value-pair { 
+.array-element, .key-value-pair { 
     display: block;
     padding-left: 20px;
 }
-.key-value-pair::after { content: ','; }
+.array-element::after, 
+.key-value-pair::after { content: ', '; }
+.array-element:last-of-type::after, 
 .key-value-pair:last-of-type::after { content: none; }
 
 .validation-wrong-type { color: orange; }

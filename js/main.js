@@ -34,9 +34,7 @@ var json = {
 
 var jsonToDom = require('./jsonToDom');
 var resultContainer = document.getElementById('validationResult');
-resultContainer.appendChild(jsonToDom(
-    json
-));
+resultContainer.appendChild(jsonToDom(json));
 
 var validator = require('is-my-json-valid');
 var validate = validator(schema);
