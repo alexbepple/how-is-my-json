@@ -31,8 +31,15 @@ var json = {
     }
 };
 
+
+var jsonToDom = require('./jsonToDom');
+var resultContainer = document.getElementById('validationResult');
+resultContainer.appendChild(jsonToDom(
+    json
+));
+
 var validator = require('is-my-json-valid');
-var validate = validator(schema, {verbose: true});
+var validate = validator(schema);
 validate(json);
 
 var r = require('ramda');
