@@ -32,10 +32,6 @@ var json = {
 };
 
 
-var jsonToDom = require('./jsonToDom');
-var resultContainer = document.getElementById('validationResult');
-resultContainer.appendChild(jsonToDom(json));
-
 var validator = require('is-my-json-valid');
 var validate = validator(schema);
 validate(json);
@@ -59,6 +55,16 @@ var selectorsMissing = r.pipe(
     r.filter(isMissing),
     r.map(errorToPathComponents),
     r.map(pathComponentsToSelector)
+)(validate.errors);
+
+var addMissingProperty = function (object, path) {
+    return r.assocPath(path, '…', object);
+};
+var jsonWithMissingProperties = r.pipe(
+    r.filter(isMissing),
+    r.map(errorToPathComponents),
+    r.map(r.join('.')), 
+    r.reduce(addMissingProperty, json)
 )(validate.errors);
 
 var hasAdditionalProperties = r.propEq('message', 'has additional properties');
@@ -118,6 +124,10 @@ var selectorsAdditional = r.pipe(
     r.map(pathComponentsToSelector)
 )(validate.errors);
 
+
+var jsonToDom = require('./jsonToDom');
+var resultContainer = document.getElementById('validationResult');
+resultContainer.appendChild(jsonToDom(jsonWithMissingProperties));
 
 $(r.join(',', selectorsWrongType)).addClass('validation-wrong-type');
 $(r.join(',', selectorsMissing)).addClass('validation-missing');
