@@ -1,8 +1,8 @@
 {
   "private": true,
   "dependencies": {
-    "is-my-json-valid": "^2.7.0",
-    "ramda": "^0.9.1",
+    "is-my-json-valid": "^2.8.0",
+    "ramda": "^0.10.0",
     "crel": "^2.1.8"
   },
   "devDependencies": {
