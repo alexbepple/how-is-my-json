@@ -1,3 +1,23 @@
+#contentContainer {
+    display:         flex;
+    display: -webkit-flex;
+}
+#validationInputs, #validationResult {
+            flex: 1;
+    -webkit-flex: 1;
+}
+
+#validationInputs {
+    display:         flex;
+    display: -webkit-flex;
+            flex-direction: column;
+    -webkit-flex-direction: column;
+}
+#validationInputs > textarea {
+            flex: 1;
+    -webkit-flex: 1;
+}
+
 .value.type-object::before { content: '{'; }
 .value.type-object::after { content: '}'; }
 
