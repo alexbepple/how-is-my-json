@@ -1,3 +1,16 @@
+var schemaContainer = document.getElementById('schema');
+var jsonContainer = document.getElementById('jsonToValidate');
+
+var validator = require('./validator');
+var revalidate = function () {
+    var schema = JSON.parse(schemaContainer.value);
+    var json = JSON.parse(jsonContainer.value);
+    validator.validateJsonAgainstSchema(json, schema);
+};
+
+schemaContainer.addEventListener('input', revalidate);
+jsonContainer.addEventListener('input', revalidate);
+
 var schema = {
     "type": "object", 
     "additionalProperties": false, 
@@ -22,17 +35,10 @@ var schema = {
         }
     }
 };
+schemaContainer.textContent = JSON.stringify(schema, null, 4);
+schemaContainer.dispatchEvent(new Event('input'));
 
-
-var util = require('util');
-var validator = require('./validator');
-
-var jsonContainer = document.getElementById('jsonToValidate');
-jsonContainer.addEventListener('input', function () {
-    var json = JSON.parse(jsonContainer.value);
-    console.log(util.format('JSON changed to: %s', util.inspect(json)));
-    validator.validateJsonAgainstSchema(json, schema);
-});
+jsonContainer.addEventListener('input', revalidate);
 var json = {
     "a": "foo", 
     "b": {
