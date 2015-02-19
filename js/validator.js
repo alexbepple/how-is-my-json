@@ -5,7 +5,11 @@ var validateJsonAgainstSchema = function (json, schema) {
     var validate = validator(schema);
     validate(json);
 
-    var errorToPathComponents = r.pipe(r.prop('field'), r.split('.'), r.tail);
+    var errorToPathComponents = r.pipe(
+        r.prop('field'), 
+        r.replace(/\*/g, 'array-element'),
+        r.split('.'), 
+        r.tail);
     var prependString = r.useWith(r.replace(/^/), r.identity);
     var pathComponentsToSelector = r.pipe(r.map(prependString('.')), r.join(' '));
 
@@ -14,7 +18,8 @@ var validateJsonAgainstSchema = function (json, schema) {
         r.filter(isWrongType),
         r.map(errorToPathComponents),
         r.map(r.append('value')),
-        r.map(pathComponentsToSelector)
+        r.map(pathComponentsToSelector),
+        r.uniq
     )(validate.errors);
 
     var isMissing = r.propEq('message', 'is required');

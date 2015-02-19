@@ -32,6 +32,15 @@ var schema = {
                     "required": true
                 }
             }
+        },
+        c: {
+            type: "array",
+            items: {
+                type: "object",
+                properties: {
+                    a: { type: "integer" }
+                }
+            }
         }
     }
 };
@@ -44,7 +53,11 @@ var json = {
     "b": {
         "ba": "wrong type", 
         "bc": "additional"
-    }
+    },
+    c: [
+        {a: "1"},
+        {a: "2"}
+    ]
 };
 jsonContainer.textContent = JSON.stringify(json, null, 4);
 jsonContainer.dispatchEvent(new Event('input'));
