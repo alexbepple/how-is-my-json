@@ -17,7 +17,6 @@ var validateJsonAgainstSchema = function (json, schema) {
     var selectorsWrongType = r.pipe(
         r.filter(isWrongType),
         r.map(errorToPathComponents),
-        r.map(r.append('value')),
         r.map(pathComponentsToSelector),
         r.uniq
     )(validate.errors);
