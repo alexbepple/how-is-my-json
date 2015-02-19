@@ -41,6 +41,10 @@ var schema = {
                     a: { type: "integer" }
                 }
             }
+        },
+        d: {
+            type: "array",
+            items: { type: "string" }
         }
     }
 };
@@ -57,7 +61,8 @@ var json = {
     c: [
         {a: "1"},
         {a: "2"}
-    ]
+    ],
+    d: [1, 2]
 };
 jsonContainer.textContent = JSON.stringify(json, null, 4);
 jsonContainer.dispatchEvent(new Event('input'));
