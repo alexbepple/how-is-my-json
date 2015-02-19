@@ -1,6 +1,10 @@
 var validator = require('is-my-json-valid');
 var r = require('ramda');
 
+var addPath = function (object, path) {
+    return r.assocPath(path, '…', object);
+};
+
 var validateJsonAgainstSchema = function (json, schema) {
     var validate = validator(schema);
     validate(json);
@@ -28,14 +32,11 @@ var validateJsonAgainstSchema = function (json, schema) {
         r.map(pathComponentsToSelector)
     )(validate.errors);
 
-    var addMissingProperty = function (object, path) {
-        return r.assocPath(path, '…', object);
-    };
     var jsonWithMissingProperties = r.pipe(
         r.filter(isMissing),
         r.map(errorToPathComponents),
         r.map(r.join('.')), 
-        r.reduce(addMissingProperty, json)
+        r.reduce(addPath, json)
     )(validate.errors);
 
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
@@ -109,6 +110,7 @@ var validateJsonAgainstSchema = function (json, schema) {
 };
 
 module.exports = {
-    validateJsonAgainstSchema: validateJsonAgainstSchema
+    validateJsonAgainstSchema: validateJsonAgainstSchema,
+    addPath: addPath
 };
 
