@@ -38,7 +38,8 @@ var schema = {
             items: {
                 type: "object",
                 properties: {
-                    a: { type: "integer" }
+                    a: { type: "integer" },
+                    b: { type: "integer", required: true }
                 }
             }
         },

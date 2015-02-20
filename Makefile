@@ -8,7 +8,7 @@ run_tests := $(bin)/mocha --check-leaks --recursive $(test) --compilers ls:LiveS
 test:
 	NODE_PATH=$(src) $(run_tests) --reporter mocha-unfunk-reporter $(args)
 tdd:
-	$(bin)/nodemon --exec 'make test' --ext ls,js
+	$(bin)/nodemon --exec 'make test' --ext ls,js --ignore js/bundle.js
 
 
 watchify:

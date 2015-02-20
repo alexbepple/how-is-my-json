@@ -1,7 +1,19 @@
 var validator = require('is-my-json-valid');
 var r = require('ramda');
 
-var addPath = function (object, path) {
+var addPathTo = function (object, path) {
+    if (r.strIndexOf('*', path) === 0) {
+        var pathInArrayElement = r.pipe(r.split('*.'), r.tail, r.join('*.'))(path);
+        var addPath = r.flip(addPathTo);
+        return r.map(addPath(pathInArrayElement))(object);
+    }
+    if (r.strIndexOf('*', path) > 0) {
+        var pathsBetweenArrays = r.split('.*.')(path);
+        var pathToArray = r.head(pathsBetweenArrays);
+        var pathFromArrayOn = '*.' + r.pipe(r.tail, r.join('.*.'))(pathsBetweenArrays);
+        var array = r.path(pathToArray, object);
+        return r.assocPath(pathToArray, addPathTo(array, pathFromArrayOn), object);
+    }
     return r.assocPath(path, '…', object);
 };
 
@@ -11,7 +23,6 @@ var validateJsonAgainstSchema = function (json, schema) {
 
     var errorToPathComponents = r.pipe(
         r.prop('field'), 
-        r.replace(/\*/g, 'array-element'),
         r.split('.'), 
         r.tail);
     var prependString = r.useWith(r.replace(/^/), r.identity);
@@ -22,6 +33,7 @@ var validateJsonAgainstSchema = function (json, schema) {
         r.filter(isWrongType),
         r.map(errorToPathComponents),
         r.map(pathComponentsToSelector),
+        r.map(r.replace(/\*/g, 'array-element')),
         r.uniq
     )(validate.errors);
 
@@ -29,14 +41,15 @@ var validateJsonAgainstSchema = function (json, schema) {
     var selectorsMissing = r.pipe(
         r.filter(isMissing),
         r.map(errorToPathComponents),
-        r.map(pathComponentsToSelector)
+        r.map(pathComponentsToSelector),
+        r.map(r.replace(/\*/g, 'array-element'))
     )(validate.errors);
 
     var jsonWithMissingProperties = r.pipe(
         r.filter(isMissing),
         r.map(errorToPathComponents),
         r.map(r.join('.')), 
-        r.reduce(addPath, json)
+        r.reduce(addPathTo, json)
     )(validate.errors);
 
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
@@ -111,6 +124,6 @@ var validateJsonAgainstSchema = function (json, schema) {
 
 module.exports = {
     validateJsonAgainstSchema: validateJsonAgainstSchema,
-    addPath: addPath
+    addPathTo: addPathTo
 };
 
