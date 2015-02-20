@@ -1,21 +1,24 @@
 var validator = require('is-my-json-valid');
 var r = require('ramda');
 
+var dropLastChar = r.pipe(r.split(''), r.init, r.join(''));
 var addPathTo = function (object, path) {
-    if (r.strIndexOf('*', path) === 0) {
-        var pathInArrayElement = r.pipe(r.split('*.'), r.tail, r.join('*.'))(path);
-        var addPath = r.flip(addPathTo);
+    var pathSegments = r.split('*.', path);
+
+    if (r.length(pathSegments) === 1)
+        return r.assocPath(path, '…', object);
+
+    var pathInArrayElement = r.pipe(r.tail, r.join('*.'))(pathSegments);
+    if (Array.isArray(object)) {
         return r.map(addPath(pathInArrayElement))(object);
     }
-    if (r.strIndexOf('*', path) > 0) {
-        var pathsBetweenArrays = r.split('.*.')(path);
-        var pathToArray = r.head(pathsBetweenArrays);
-        var pathFromArrayOn = '*.' + r.pipe(r.tail, r.join('.*.'))(pathsBetweenArrays);
-        var array = r.path(pathToArray, object);
-        return r.assocPath(pathToArray, addPathTo(array, pathFromArrayOn), object);
-    }
-    return r.assocPath(path, '…', object);
+
+    var pathToArray = r.pipe(r.head, dropLastChar)(pathSegments);
+    var pathFromArrayOn = '*.' + pathInArrayElement;
+    var augmentedArray = addPathTo(r.path(pathToArray, object), pathFromArrayOn);
+    return r.assocPath(pathToArray, augmentedArray, object);
 };
+var addPath = r.flip(addPathTo);
 
 var validateJsonAgainstSchema = function (json, schema) {
     var validate = validator(schema);
