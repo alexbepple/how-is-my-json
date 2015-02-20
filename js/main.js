@@ -12,40 +12,40 @@ schemaContainer.addEventListener('input', revalidate);
 jsonContainer.addEventListener('input', revalidate);
 
 var schema = {
-    "type": "object", 
-    "additionalProperties": false, 
-    "properties": {
-        "a": {
-            "type": "string", 
-            "required": true
+    type: 'object', 
+    additionalProperties: false, 
+    properties: {
+        a: {
+            type: 'string', 
+            required: true
         }, 
-        "b": {
-            "type": "object", 
-            "additionalProperties": false, 
-            "properties": {
-                "ba": {
-                    "type": "integer", 
-                    "required": true
+        b: {
+            type: 'object', 
+            additionalProperties: false, 
+            properties: {
+                ba: {
+                    type: 'integer', 
+                    required: true
                 }, 
-                "bb": {
-                    "type": "string", 
-                    "required": true
+                bb: {
+                    type: 'string', 
+                    required: true
                 }
             }
         },
         c: {
-            type: "array",
+            type: 'array',
             items: {
-                type: "object",
+                type: 'object',
                 properties: {
-                    a: { type: "integer" },
-                    b: { type: "integer", required: true }
+                    a: { type: 'integer' },
+                    b: { type: 'integer', required: true }
                 }
             }
         },
         d: {
-            type: "array",
-            items: { type: "string" }
+            type: 'array',
+            items: { type: 'string' }
         }
     }
 };
@@ -54,14 +54,14 @@ schemaContainer.dispatchEvent(new Event('input'));
 
 jsonContainer.addEventListener('input', revalidate);
 var json = {
-    "a": "foo", 
-    "b": {
-        "ba": "wrong type", 
-        "bc": "additional"
+    a: 'foo', 
+    b: {
+        ba: 'wrong type', 
+        bc: 'additional'
     },
     c: [
-        {a: "1"},
-        {a: "2"}
+        {a: '1'},
+        {a: '2'}
     ],
     d: [1, 2]
 };
