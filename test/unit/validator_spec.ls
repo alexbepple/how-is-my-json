@@ -33,3 +33,16 @@ describe 'Validator#propertiesInObject' ->
 	specify 'lists properties in arrays' ->
 		assertThat v.propertiesInObject([{a: null}], '*'), equalTo ['a']
 
+describe 'Validator#objectPathToSchemaPath' ->
+	specify 'converts root path' ->
+		assertThat v.objectPathToSchemaPath(''), equalTo 'properties'
+	specify 'converts top-level path' ->
+		assertThat v.objectPathToSchemaPath('a'),
+			equalTo 'properties.a.properties'
+	specify 'converts path with array' ->
+		assertThat v.objectPathToSchemaPath('*'),
+			equalTo 'items.properties'
+	specify 'converts path with multiple arrays' ->
+		assertThat v.objectPathToSchemaPath('*.*'),
+			equalTo 'items.items.properties'
+

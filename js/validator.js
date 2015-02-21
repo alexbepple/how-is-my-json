@@ -1,13 +1,15 @@
 var validator = require('is-my-json-valid');
 var r = require('ramda');
 
+var prependStr = r.useWith(r.replace(/^/), r.identity);
+var appendStr = r.useWith(r.replace(/$/), r.identity);
+
 var errorToPathComponents = r.pipe(
     r.prop('field'), 
     r.split('.'), 
     r.tail);
-var prependString = r.useWith(r.replace(/^/), r.identity);
 var pathComponentsToSelector = r.pipe(
-    r.map(prependString('.')), 
+    r.map(prependStr('.')), 
     r.join(' '),
     r.replace(/\*/g, 'array-element')
 );
@@ -45,27 +47,22 @@ var propertiesInObject = r.curry(function (object, path) {
         r.keys
     )(path);
 });
+var objectPathToSchemaPath = function (objectPath) {
+    if (objectPath === '') 
+        return 'properties';
+    return r.pipe(
+        r.split('.'),
+        r.map(appendStr('.properties')),
+        r.prepend('properties'),
+        r.join('.'),
+        r.replace(/properties\.\*/g, 'items')
+    )(objectPath);
+};
 var selectorsForAdditionalProperties = function (schema, json, errors) {
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
-    var objectPathToSchemaPath = r.converge(
-        r.pipe(
-            r.zip,
-            r.flatten,
-            r.append('properties'),
-            r.join('.')
-        ),
-        r.pipe(
-            r.split('.'),
-            r.length,
-            r.times(r.identity),
-            r.map(function(){return 'properties';})
-        ),
-        r.split('.')
-    );
     var propertiesInSchemaUnderPath = r.pipe(
         objectPathToSchemaPath,
-        r.flip(r.path)(schema),
-        r.keys
+        propertiesInObject(schema)
     );
     var definedPaths = r.pipe(
         r.converge(
@@ -144,6 +141,7 @@ module.exports = {
     validateJsonAgainstSchema: validateJsonAgainstSchema,
     addPathTo: addPathTo,
     selectorsForAdditionalProperties: selectorsForAdditionalProperties,
-    propertiesInObject: propertiesInObject
+    propertiesInObject: propertiesInObject,
+    objectPathToSchemaPath: objectPathToSchemaPath
 };
 
