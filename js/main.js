@@ -37,9 +37,10 @@ var schema = {
             type: 'array',
             items: {
                 type: 'object',
+                additionalProperties: false,
                 properties: {
-                    a: { type: 'integer' },
-                    b: { type: 'integer', required: true }
+                    a: { type: 'string' },
+                    b: { type: 'string', required: true }
                 }
             }
         },
@@ -60,8 +61,8 @@ var json = {
         bc: 'additional'
     },
     c: [
-        {a: '1'},
-        {a: '2'}
+        {a: 1, c: 2},
+        {a: 3, c: 4}
     ],
     d: [1, 2]
 };
