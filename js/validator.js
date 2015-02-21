@@ -29,23 +29,27 @@ var validateJsonAgainstSchema = function (json, schema) {
         r.split('.'), 
         r.tail);
     var prependString = r.useWith(r.replace(/^/), r.identity);
-    var pathComponentsToSelector = r.pipe(r.map(prependString('.')), r.join(' '));
+    var pathComponentsToSelector = r.pipe(
+        r.map(prependString('.')), 
+        r.join(' '),
+        r.replace(/\*/g, 'array-element')
+    );
+    var errorsToSelectors = r.pipe(
+        r.map(errorToPathComponents),
+        r.map(pathComponentsToSelector),
+        r.uniq
+    );
 
     var isWrongType = r.propEq('message', 'is the wrong type');
     var selectorsWrongType = r.pipe(
         r.filter(isWrongType),
-        r.map(errorToPathComponents),
-        r.map(pathComponentsToSelector),
-        r.map(r.replace(/\*/g, 'array-element')),
-        r.uniq
+        errorsToSelectors
     )(validate.errors);
 
     var isMissing = r.propEq('message', 'is required');
     var selectorsMissing = r.pipe(
         r.filter(isMissing),
-        r.map(errorToPathComponents),
-        r.map(pathComponentsToSelector),
-        r.map(r.replace(/\*/g, 'array-element'))
+        errorsToSelectors
     )(validate.errors);
 
     var jsonWithMissingProperties = r.pipe(
