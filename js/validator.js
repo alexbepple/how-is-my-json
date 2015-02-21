@@ -37,6 +37,14 @@ var addPathTo = function (object, path) {
 var addPath = r.flip(addPathTo);
 
 
+var propertiesInObject = r.curry(function (object, path) {
+    var safePath = r.ifElse(r.isEmpty, r.always(object), r.flip(r.path)(object));
+    return r.pipe(
+        r.replace(/\*/, '0'),
+        safePath,
+        r.keys
+    )(path);
+});
 var selectorsForAdditionalProperties = function (schema, json, errors) {
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
     var objectPathToSchemaPath = r.converge(
@@ -59,10 +67,6 @@ var selectorsForAdditionalProperties = function (schema, json, errors) {
         r.flip(r.path)(schema),
         r.keys
     );
-    var propertiesInObjectUnderPath = r.pipe(
-        r.flip(r.path)(json),
-        r.keys
-    );
     var definedPaths = r.pipe(
         r.converge(
             r.xprod,
@@ -75,7 +79,7 @@ var selectorsForAdditionalProperties = function (schema, json, errors) {
         r.converge(
             r.xprod,
             r.of,
-            propertiesInObjectUnderPath
+            propertiesInObject(json)
         ),
         r.map(r.join('.'))
     );
@@ -139,6 +143,7 @@ var validateJsonAgainstSchema = function (json, schema) {
 module.exports = {
     validateJsonAgainstSchema: validateJsonAgainstSchema,
     addPathTo: addPathTo,
-    selectorsForAdditionalProperties: selectorsForAdditionalProperties
+    selectorsForAdditionalProperties: selectorsForAdditionalProperties,
+    propertiesInObject: propertiesInObject
 };
 

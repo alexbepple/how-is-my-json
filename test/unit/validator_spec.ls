@@ -1,6 +1,6 @@
 require! {
 	validator:v
-	{assertThat, everyItem, hasProperty, defined}: hamjest
+	{assertThat, everyItem, hasProperty, defined, equalTo}: hamjest
 }
 
 describe 'Validator#addPathTo' ->
@@ -24,4 +24,12 @@ describe 'Validator#addPathTo' ->
 			hasProperty 'a', everyItem(
 				hasProperty 'a', everyItem(
 					hasProperty 'a'))
+
+describe 'Validator#propertiesInObject' ->
+	specify 'lists properties at top level' ->
+		assertThat v.propertiesInObject(a:  null, ''), equalTo ['a']
+	specify 'lists properties at 2nd level' ->
+		assertThat v.propertiesInObject(a: b: null, 'a'), equalTo ['b']
+	specify 'lists properties in arrays' ->
+		assertThat v.propertiesInObject([{a: null}], '*'), equalTo ['a']
 
