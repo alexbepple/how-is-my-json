@@ -1,6 +1,22 @@
 var validator = require('is-my-json-valid');
 var r = require('ramda');
 
+var errorToPathComponents = r.pipe(
+    r.prop('field'), 
+    r.split('.'), 
+    r.tail);
+var prependString = r.useWith(r.replace(/^/), r.identity);
+var pathComponentsToSelector = r.pipe(
+    r.map(prependString('.')), 
+    r.join(' '),
+    r.replace(/\*/g, 'array-element')
+);
+var errorsToSelectors = r.pipe(
+    r.map(errorToPathComponents),
+    r.map(pathComponentsToSelector),
+    r.uniq
+);
+
 var dropLastChar = r.pipe(r.split(''), r.init, r.join(''));
 var addPathTo = function (object, path) {
     var pathSegments = r.split('*.', path);
@@ -20,45 +36,8 @@ var addPathTo = function (object, path) {
 };
 var addPath = r.flip(addPathTo);
 
-var validateJsonAgainstSchema = function (json, schema) {
-    var validate = validator(schema);
-    validate(json);
 
-    var errorToPathComponents = r.pipe(
-        r.prop('field'), 
-        r.split('.'), 
-        r.tail);
-    var prependString = r.useWith(r.replace(/^/), r.identity);
-    var pathComponentsToSelector = r.pipe(
-        r.map(prependString('.')), 
-        r.join(' '),
-        r.replace(/\*/g, 'array-element')
-    );
-    var errorsToSelectors = r.pipe(
-        r.map(errorToPathComponents),
-        r.map(pathComponentsToSelector),
-        r.uniq
-    );
-
-    var isWrongType = r.propEq('message', 'is the wrong type');
-    var selectorsWrongType = r.pipe(
-        r.filter(isWrongType),
-        errorsToSelectors
-    )(validate.errors);
-
-    var isMissing = r.propEq('message', 'is required');
-    var selectorsMissing = r.pipe(
-        r.filter(isMissing),
-        errorsToSelectors
-    )(validate.errors);
-
-    var jsonWithMissingProperties = r.pipe(
-        r.filter(isMissing),
-        r.map(errorToPathComponents),
-        r.map(r.join('.')), 
-        r.reduce(addPathTo, json)
-    )(validate.errors);
-
+var selectorsForAdditionalProperties = function (schema, json, errors) {
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
     var objectPathToSchemaPath = r.converge(
         r.pipe(
@@ -105,8 +84,7 @@ var validateJsonAgainstSchema = function (json, schema) {
         actualPaths,
         definedPaths
     );
-
-    var selectorsAdditional = r.pipe(
+    return r.pipe(
         r.filter(hasAdditionalProperties),
         r.map(errorToPathComponents),
         r.map(r.join('.')),
@@ -114,8 +92,32 @@ var validateJsonAgainstSchema = function (json, schema) {
         r.flatten,
         r.map(r.split('.')),
         r.map(pathComponentsToSelector)
+    )(errors);
+};
+
+
+var validateJsonAgainstSchema = function (json, schema) {
+    var validate = validator(schema);
+    validate(json);
+
+    var isWrongType = r.propEq('message', 'is the wrong type');
+    var selectorsWrongType = r.pipe(
+        r.filter(isWrongType),
+        errorsToSelectors
     )(validate.errors);
 
+    var isMissing = r.propEq('message', 'is required');
+    var selectorsMissing = r.pipe(
+        r.filter(isMissing),
+        errorsToSelectors
+    )(validate.errors);
+
+    var jsonWithMissingProperties = r.pipe(
+        r.filter(isMissing),
+        r.map(errorToPathComponents),
+        r.map(r.join('.')), 
+        r.reduce(addPathTo, json)
+    )(validate.errors);
 
     var jsonToDom = require('./jsonToDom');
     var resultContainer = document.getElementById('validationResult');
@@ -126,11 +128,12 @@ var validateJsonAgainstSchema = function (json, schema) {
 
     $(r.join(',', selectorsWrongType)).addClass('validation-wrong-type');
     $(r.join(',', selectorsMissing)).addClass('validation-missing');
-    $(r.join(',', selectorsAdditional)).addClass('validation-additional');
+    $(r.join(',', selectorsForAdditionalProperties(schema, json, validate.errors))).addClass('validation-additional');
 };
 
 module.exports = {
     validateJsonAgainstSchema: validateJsonAgainstSchema,
-    addPathTo: addPathTo
+    addPathTo: addPathTo,
+    selectorsForAdditionalProperties: selectorsForAdditionalProperties
 };
 

@@ -3,7 +3,7 @@ require! {
 	{assertThat, everyItem, hasProperty, defined}: hamjest
 }
 
-describe 'Validator#addPath' ->
+describe 'Validator#addPathTo' ->
 	specify 'injects flat path into object' ->
 		assertThat v.addPathTo({}, 'a'), hasProperty 'a'
 	specify 'injects deep path into object' ->
