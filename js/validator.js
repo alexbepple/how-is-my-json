@@ -42,7 +42,7 @@ var addPath = r.flip(addPathTo);
 var propertiesInObject = r.curry(function (object, path) {
     var safePath = r.ifElse(r.isEmpty, r.always(object), r.flip(r.path)(object));
     return r.pipe(
-        r.replace(/\*/, '0'),
+        r.replace(/\*/g, '0'),
         safePath,
         r.keys
     )(path);

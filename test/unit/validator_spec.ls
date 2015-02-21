@@ -32,6 +32,8 @@ describe 'Validator#propertiesInObject' ->
 		assertThat v.propertiesInObject(a: b: null, 'a'), equalTo ['b']
 	specify 'lists properties in arrays' ->
 		assertThat v.propertiesInObject([{a: null}], '*'), equalTo ['a']
+	specify 'lists properties in nested arrays' ->
+		assertThat v.propertiesInObject([[{a: null}]], '*.*'), equalTo ['a']
 
 describe 'Validator#objectPathToSchemaPath' ->
 	specify 'converts root path' ->
