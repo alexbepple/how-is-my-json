@@ -126,9 +126,14 @@ var validateJsonAgainstSchema = function (json, schema) {
     }
     resultContainer.appendChild(jsonToDom(jsonWithMissingProperties));
 
-    $(r.join(',', selectorsWrongType)).addClass('validation-wrong-type');
-    $(r.join(',', selectorsMissing)).addClass('validation-missing');
-    $(r.join(',', selectorsForAdditionalProperties(schema, json, validate.errors))).addClass('validation-additional');
+    var addClass = function (cssClass, selectors) {
+        $(r.join(',', selectors)).addClass(cssClass);
+    };
+    addClass('validation-wrong-type', selectorsWrongType);
+    addClass('validation-missing', selectorsMissing);
+    addClass('validation-additional', 
+             selectorsForAdditionalProperties(schema, json, validate.errors));
+
 };
 
 module.exports = {
