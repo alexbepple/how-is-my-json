@@ -43,9 +43,11 @@ var prependPath = r.curry(function (parentPath, subpath) {
     if (parentPath === '') return subpath;
     return r.join('.')([parentPath, subpath]);
 });
-var pathsOfAdditionalProperties = r.curry(function (actualFinder, definedFinder, path) {
-    var additionalProperties = r.difference(actualFinder(path), definedFinder(path));
-    return r.map(prependPath(path))(additionalProperties);
+var pathsOfAdditionalProperties = r.curry(function (findActual, findDefined, path) {
+    var additionalProps = r.converge(
+        r.difference, findActual, findDefined
+    )(path);
+    return r.map(prependPath(path))(additionalProps);
 });
 
 var propertiesInObject = r.curry(function (object, path) {
@@ -67,15 +69,12 @@ var objectPathToSchemaPath = function (objectPath) {
         r.replace(/properties\.\*/g, 'items')
     )(objectPath);
 };
+var propertiesInSchema = r.useWith(propertiesInObject, r.identity, objectPathToSchemaPath);
 var selectorsForAdditionalProperties = function (schema, json, errors) {
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
-    var propertiesInSchema = r.pipe(
-        objectPathToSchemaPath,
-        propertiesInObject(schema)
-    );
     var pathsOfAdditionalPropertiesOf = pathsOfAdditionalProperties(
         propertiesInObject(json),
-        propertiesInSchema
+        propertiesInSchema(schema)
     );
     return r.pipe(
         r.filter(hasAdditionalProperties),
