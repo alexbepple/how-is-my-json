@@ -40,6 +40,7 @@ var addPathTo = function (object, path) {
 var addPath = r.flip(addPathTo);
 
 var prependPath = r.curry(function (parentPath, subpath) {
+    if (parentPath === '') return subpath;
     return r.join('.')([parentPath, subpath]);
 });
 var pathsOfAdditionalProperties = r.curry(function (actualFinder, definedFinder, path) {

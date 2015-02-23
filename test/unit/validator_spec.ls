@@ -50,6 +50,8 @@ describe 'Validator#objectPathToSchemaPath' ->
 			equalTo 'items.items.properties'
 
 describe 'Validator#prependPath' ->
+	specify 'appends path to root path' ->
+		assertThat v.prependPath('', 'a'), equalTo ('a')
 	specify 'appends path to top-level path' ->
 		assertThat v.prependPath('a', 'b'), equalTo ('a.b')
 

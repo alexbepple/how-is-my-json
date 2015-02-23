@@ -56,6 +56,7 @@ schemaContainer.dispatchEvent(new Event('input'));
 jsonContainer.addEventListener('input', revalidate);
 var json = {
     a: 'foo', 
+    additional: 1,
     b: {
         ba: 'wrong type', 
         bc: 'additional'
