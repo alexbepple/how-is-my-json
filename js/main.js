@@ -1,3 +1,5 @@
+var r = require('ramda');
+
 var schemaContainer = document.getElementById('schema');
 var jsonContainer = document.getElementById('jsonToValidate');
 
@@ -7,70 +9,27 @@ var revalidate = function () {
     var json = JSON.parse(jsonContainer.value);
     highlighter.validateJsonAgainstSchema(json, schema);
 };
+var storeSchema = function () {
+    localStorage.setItem('schema', schemaContainer.value);
+};
+var storeJson = function () {
+    localStorage.setItem('json', jsonContainer.value);
+};
 
 schemaContainer.addEventListener('input', revalidate);
+schemaContainer.addEventListener('input', storeSchema);
 jsonContainer.addEventListener('input', revalidate);
+jsonContainer.addEventListener('input', storeJson);
 
-var schema = {
-    type: 'object', 
-    additionalProperties: false, 
-    properties: {
-        correct: {
-            type: 'boolean', 
-            required: true
-        }, 
-        shouldBeString: {
-            type: 'string', 
-            required: true
-        }, 
-        missing: { required: true }, 
-        nestedObject: {
-            type: 'object', 
-            required: true,
-            additionalProperties: false, 
-            properties: {
-                shouldBeNumber: {
-                    type: 'number', 
-                    required: true
-                }, 
-                missing: { required: true }
-            }
-        },
-        arrayOfObjects: {
-            type: 'array',
-            required: true,
-            items: {
-                type: 'object',
-                additionalProperties: false,
-                properties: {
-                    correct: { type: 'boolean' },
-                    missing: { required: true }
-                }
-            }
-        },
-        arrayOfWhatShouldBeStrings: {
-            type: 'array',
-            items: { type: 'string' }
-        }
-    }
-};
-schemaContainer.textContent = JSON.stringify(schema, null, 4);
-schemaContainer.dispatchEvent(new Event('input'));
 
-jsonContainer.addEventListener('input', revalidate);
-var json = {
-    correct: true,
-    additional: null,
-    shouldBeString: 1,
-    nestedObject: {
-        shouldBeNumber: 'but is string', 
-        additional: null
-    },
-    arrayOfObjects: [
-        {correct: true, additional: null},
-        {correct: true, additional: null}
-    ],
-    arrayOfWhatShouldBeStrings: [1, 2]
+var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
+var defaults = require('./defaults');
+
+var loadUserContent = function (key, container, defaultAsObject) {
+    var defaultToExample = r.defaultTo(jsonToString(defaultAsObject));
+    container.textContent = defaultToExample(localStorage.getItem(key));
+    container.dispatchEvent(new Event('input'));
 };
-jsonContainer.textContent = JSON.stringify(json, null, 4);
-jsonContainer.dispatchEvent(new Event('input'));
+
+loadUserContent('schema', schemaContainer, defaults.schema);
+loadUserContent('json', jsonContainer, defaults.json);
