@@ -1,11 +1,11 @@
 var schemaContainer = document.getElementById('schema');
 var jsonContainer = document.getElementById('jsonToValidate');
 
-var validator = require('./validator');
+var highlighter = require('./imjv-highlighter');
 var revalidate = function () {
     var schema = JSON.parse(schemaContainer.value);
     var json = JSON.parse(jsonContainer.value);
-    validator.validateJsonAgainstSchema(json, schema);
+    highlighter.validateJsonAgainstSchema(json, schema);
 };
 
 schemaContainer.addEventListener('input', revalidate);
