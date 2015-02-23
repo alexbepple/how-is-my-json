@@ -4,9 +4,26 @@ var m = require('./misc');
 var addPathTo = require('./missing').addPathTo;
 var additional = require('./additional');
 
+var jsonToDom = require('../jsonToDom');
+var removeAllChildren = function (node) {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild);
+    }
+};
+var displayJson = function (json) {
+    var resultContainer = document.getElementById('validationResult');
+    removeAllChildren(resultContainer);
+    resultContainer.appendChild(jsonToDom(json));
+};
+
 var validateJsonAgainstSchema = function (json, schema) {
     var validate = validator(schema);
-    validate(json);
+    var isValid = validate(json);
+
+    if (isValid) {
+        displayJson(json);
+        return;
+    }
 
     var isWrongType = r.propEq('message', 'is the wrong type');
     var selectorsWrongType = r.pipe(
@@ -27,12 +44,7 @@ var validateJsonAgainstSchema = function (json, schema) {
         r.reduce(addPathTo, json)
     )(validate.errors);
 
-    var jsonToDom = require('../jsonToDom');
-    var resultContainer = document.getElementById('validationResult');
-    while (resultContainer.firstChild) {
-        resultContainer.removeChild(resultContainer.firstChild);
-    }
-    resultContainer.appendChild(jsonToDom(jsonWithMissingProperties));
+    displayJson(jsonWithMissingProperties);
 
     var addClass = function (cssClass, selectors) {
         $(r.join(',', selectors)).addClass(cssClass);
