@@ -3,10 +3,13 @@ var r = require('ramda');
 var schemaContainer = document.getElementById('schema');
 var jsonContainer = document.getElementById('jsonToValidate');
 
+var stripComments = require('strip-json-comments');
+var parse = r.pipe(stripComments, JSON.parse);
+
 var highlighter = require('./imjv-highlighter');
 var revalidate = function () {
-    var schema = JSON.parse(schemaContainer.value);
-    var json = JSON.parse(jsonContainer.value);
+    var schema = parse(schemaContainer.value);
+    var json = parse(jsonContainer.value);
     highlighter.validateJsonAgainstSchema(json, schema);
 };
 var storeSchema = function () {
