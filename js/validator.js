@@ -1,5 +1,6 @@
 var validator = require('is-my-json-valid');
 var r = require('ramda');
+var m = require('./misc');
 
 var prependStr = r.useWith(r.replace(/^/), r.identity);
 var appendStr = r.useWith(r.replace(/$/), r.identity);
@@ -38,6 +39,13 @@ var addPathTo = function (object, path) {
 };
 var addPath = r.flip(addPathTo);
 
+var prependPath = r.curry(function (parentPath, subpath) {
+    return r.join('.')([parentPath, subpath]);
+});
+var pathsOfAdditionalProperties = r.curry(function (actualFinder, definedFinder, path) {
+    var additionalProperties = r.difference(actualFinder(path), definedFinder(path));
+    return r.map(prependPath(path))(additionalProperties);
+});
 
 var propertiesInObject = r.curry(function (object, path) {
     var safePath = r.ifElse(r.isEmpty, r.always(object), r.flip(r.path)(object));
@@ -60,30 +68,13 @@ var objectPathToSchemaPath = function (objectPath) {
 };
 var selectorsForAdditionalProperties = function (schema, json, errors) {
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
-    var propertiesInSchemaUnderPath = r.pipe(
+    var propertiesInSchema = r.pipe(
         objectPathToSchemaPath,
         propertiesInObject(schema)
     );
-    var definedPaths = r.pipe(
-        r.converge(
-            r.xprod,
-            r.of,
-            propertiesInSchemaUnderPath
-        ),
-        r.map(r.join('.'))
-    );
-    var actualPaths = r.pipe(
-        r.converge(
-            r.xprod,
-            r.of,
-            propertiesInObject(json)
-        ),
-        r.map(r.join('.'))
-    );
-    var pathsOfAdditionalPropertiesOf = r.converge(
-        r.difference,
-        actualPaths,
-        definedPaths
+    var pathsOfAdditionalPropertiesOf = pathsOfAdditionalProperties(
+        propertiesInObject(json),
+        propertiesInSchema
     );
     return r.pipe(
         r.filter(hasAdditionalProperties),
@@ -142,6 +133,8 @@ module.exports = {
     addPathTo: addPathTo,
     selectorsForAdditionalProperties: selectorsForAdditionalProperties,
     propertiesInObject: propertiesInObject,
-    objectPathToSchemaPath: objectPathToSchemaPath
+    objectPathToSchemaPath: objectPathToSchemaPath,
+    prependPath: prependPath,
+    pathsOfAdditionalProperties: pathsOfAdditionalProperties
 };
 

@@ -1,5 +1,6 @@
 require! {
 	validator:v
+	ramda:r
 	{assertThat, everyItem, hasProperty, defined, equalTo}: hamjest
 }
 
@@ -47,4 +48,15 @@ describe 'Validator#objectPathToSchemaPath' ->
 	specify 'converts path with multiple arrays' ->
 		assertThat v.objectPathToSchemaPath('*.*'),
 			equalTo 'items.items.properties'
+
+describe 'Validator#prependPath' ->
+	specify 'appends path to top-level path' ->
+		assertThat v.prependPath('a', 'b'), equalTo ('a.b')
+
+describe 'Validator#pathsOfAdditionalProperties' ->
+	specify 'prepends parent path to difference of actual and defined' ->
+		actual = r.always ['b', 'c']
+		defined = r.always ['b']
+		assertThat v.pathsOfAdditionalProperties(actual, defined, 'a'),
+			equalTo ['a.c']
 
