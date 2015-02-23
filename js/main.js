@@ -15,36 +15,40 @@ var schema = {
     type: 'object', 
     additionalProperties: false, 
     properties: {
-        a: {
+        correct: {
+            type: 'boolean', 
+            required: true
+        }, 
+        shouldBeString: {
             type: 'string', 
             required: true
         }, 
-        b: {
+        missing: { required: true }, 
+        nestedObject: {
             type: 'object', 
+            required: true,
             additionalProperties: false, 
             properties: {
-                ba: {
-                    type: 'integer', 
+                shouldBeNumber: {
+                    type: 'number', 
                     required: true
                 }, 
-                bb: {
-                    type: 'string', 
-                    required: true
-                }
+                missing: { required: true }
             }
         },
-        c: {
+        arrayOfObjects: {
             type: 'array',
+            required: true,
             items: {
                 type: 'object',
                 additionalProperties: false,
                 properties: {
-                    a: { type: 'string' },
-                    b: { type: 'string', required: true }
+                    correct: { type: 'boolean' },
+                    missing: { required: true }
                 }
             }
         },
-        d: {
+        arrayOfWhatShouldBeStrings: {
             type: 'array',
             items: { type: 'string' }
         }
@@ -55,17 +59,18 @@ schemaContainer.dispatchEvent(new Event('input'));
 
 jsonContainer.addEventListener('input', revalidate);
 var json = {
-    a: 'foo', 
-    additional: 1,
-    b: {
-        ba: 'wrong type', 
-        bc: 'additional'
+    correct: true,
+    additional: null,
+    shouldBeString: 1,
+    nestedObject: {
+        shouldBeNumber: 'but is string', 
+        additional: null
     },
-    c: [
-        {a: 1, c: 2},
-        {a: 3, c: 4}
+    arrayOfObjects: [
+        {correct: true, additional: null},
+        {correct: true, additional: null}
     ],
-    d: [1, 2]
+    arrayOfWhatShouldBeStrings: [1, 2]
 };
 jsonContainer.textContent = JSON.stringify(json, null, 4);
 jsonContainer.dispatchEvent(new Event('input'));
