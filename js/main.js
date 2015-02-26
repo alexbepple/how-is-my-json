@@ -5,6 +5,27 @@ var jsonContainer = document.getElementById('jsonToValidate');
 
 var stripComments = require('strip-json-comments');
 var parse = r.pipe(stripComments, JSON.parse);
+var isValid = function (json) {
+    try {
+        parse(json);
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+
+var setClass = function (el, cssClass, value) {
+    var el = $(el);
+    if (value) {
+        el.removeClass(cssClass);
+        return;
+    }
+    el.addClass(cssClass);
+};
+var validateJson = function() {
+    setClass(jsonContainer, 'unparseable', isValid(jsonContainer.value));
+};
+
 
 var highlighter = require('./imjv-highlighter');
 var revalidate = function () {
@@ -21,6 +42,7 @@ var storeJson = function () {
 
 schemaContainer.addEventListener('input', revalidate);
 schemaContainer.addEventListener('input', storeSchema);
+jsonContainer.addEventListener('input', validateJson);
 jsonContainer.addEventListener('input', revalidate);
 jsonContainer.addEventListener('input', storeJson);
 
