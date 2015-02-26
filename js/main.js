@@ -5,6 +5,7 @@ var jsonContainer = document.getElementById('jsonToValidate');
 
 var JsonTextarea = require('./jsonTextarea');
 JsonTextarea('jsonToValidate');
+JsonTextarea('schema');
 
 var stripComments = require('strip-json-comments');
 var parse = r.pipe(stripComments, JSON.parse);
