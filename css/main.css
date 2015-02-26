@@ -41,9 +41,11 @@ body > div {
     -webkit-flex: 1;
 }
 
+h2 {
+    margin-top: 0.2em;
+}
 h1, h2 {
-    margin-top: 0.66em;
-    margin-bottom: 0.33em;
+    margin-bottom: 0.1em;
 }
 
 .value.type-object::before { content: '{'; }
