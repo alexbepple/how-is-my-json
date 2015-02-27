@@ -29,24 +29,38 @@ body > div {
     -webkit-flex: 1;
 }
 
-#validationInputs {
+#validationInputs, #validationResultContainer {
     display:         flex;
     display: -webkit-flex;
             flex-direction: column;
     -webkit-flex-direction: column;
+}
+#validationInputs {
     margin-right: 20px;
 }
-#validationInputs > textarea {
+#validationInputs > textarea, #validationResultContainer > div {
             flex: 1;
     -webkit-flex: 1;
 }
-
-h2 {
-    margin-top: 0.2em;
+#validationResult {
+	overflow: auto;
 }
+
+footer {
+	margin-top: 10px;
+	text-align: right;
+}
+
 h1, h2 {
     margin-bottom: 0.1em;
 }
+h2 {
+    margin-top: 0.2em;
+}
+a {
+	text-decoration: none;
+}
+
 
 .greyed-out {
 	opacity: 0.3;
