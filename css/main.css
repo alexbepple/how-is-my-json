@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html { 
+    height: 100%;
+}
+body {
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+footer {
+	margin-top: 10px;
+	text-align: right;
+}
+
+h1, h2 {
+    margin-bottom: 0.1em;
+}
+h2 {
+    margin-top: 0.2em;
+}
+a {
+	text-decoration: none;
+}
+
+
+.greyed-out {
+	opacity: 0.3;
+}
+
+.unparseable, .unparseable:focus {
+    border: 2px solid red;
+    border-radius: 3px;
+    box-shadow: 0 0 10px red;
+    outline: none;
+}

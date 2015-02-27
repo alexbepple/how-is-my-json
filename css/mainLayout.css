@@ -1,0 +1,46 @@
+/*
+ * vertically maximize <main>
+ */
+body {
+    display:         flex;
+    display: -webkit-flex;
+            flex-direction: column;
+    -webkit-flex-direction: column;
+}
+main {
+            flex: 1;
+    -webkit-flex: 1;
+}
+
+/*
+ * let <div>s in <main> use up all horizontal space
+ */
+main {
+    display:         flex;
+    display: -webkit-flex;
+}
+main > div {
+            flex: 1;
+    -webkit-flex: 1;
+}
+main > div:first-child {
+    margin-right: 20px;
+}
+
+/*
+ * let main content elements use up all the space
+ */
+main > div {
+    display:         flex;
+    display: -webkit-flex;
+            flex-direction: column;
+    -webkit-flex-direction: column;
+}
+textarea, #validationResult {
+            flex: 1;
+    -webkit-flex: 1;
+}
+
+#validationResult {
+	overflow: auto;
+}
