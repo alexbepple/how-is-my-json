@@ -1,7 +1,7 @@
 var r = require('ramda');
 var stripComments = require('strip-json-comments');
 
-var setClass = function ($el, cssClass, value) {
+var setCssClass = function ($el, cssClass, value) {
     if (value) {
         $el.removeClass(cssClass);
         return;
@@ -9,7 +9,7 @@ var setClass = function ($el, cssClass, value) {
     $el.addClass(cssClass);
 };
 
-var JsonTextarea = function (elementId) {
+var JsonEditor = function (elementId) {
     var textarea = document.getElementById(elementId);
     var $textarea = $(textarea);
 
@@ -24,7 +24,7 @@ var JsonTextarea = function (elementId) {
     };
 
     var validateJson = function () {
-        setClass($textarea, 'unparseable', isValid());
+        setCssClass($textarea, 'unparseable', isValid());
     };
 
 	var onChange = function (listener) {
@@ -34,7 +34,7 @@ var JsonTextarea = function (elementId) {
 		textarea.dispatchEvent(new Event('input'));
 	};
 
-	var setValue = function (value) {
+	var setString = function (value) {
 		textarea.textContent = value;
 		emitChangeEvent();
 	};
@@ -43,8 +43,8 @@ var JsonTextarea = function (elementId) {
 
 	return {
 		onChange: onChange,
-		setValue: setValue
+		setString: setString
 	};
 };
 
-module.exports = JsonTextarea;
+module.exports = JsonEditor;

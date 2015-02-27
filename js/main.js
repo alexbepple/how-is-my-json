@@ -3,9 +3,9 @@ var r = require('ramda');
 var schemaContainer = document.getElementById('schema');
 var jsonContainer = document.getElementById('jsonToValidate');
 
-var JsonTextarea = require('./jsonTextarea');
-var jsonTextarea = JsonTextarea('jsonToValidate');
-var schemaTextarea = JsonTextarea('schema');
+var JsonEditor = require('./jsonEditor');
+var jsonEditor = JsonEditor('jsonToValidate');
+var schemaEditor = JsonEditor('schema');
 
 var stripComments = require('strip-json-comments');
 var parse = r.pipe(stripComments, JSON.parse);
@@ -23,10 +23,10 @@ var storeJson = function () {
     localStorage.setItem('json', jsonContainer.value);
 };
 
-schemaTextarea.onChange(revalidate);
-schemaTextarea.onChange(storeSchema);
-jsonTextarea.onChange(revalidate);
-jsonTextarea.onChange(storeJson);
+schemaEditor.onChange(revalidate);
+schemaEditor.onChange(storeSchema);
+jsonEditor.onChange(revalidate);
+jsonEditor.onChange(storeJson);
 
 
 var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
@@ -34,8 +34,8 @@ var defaults = require('./defaults');
 
 var loadUserContent = function (key, jsonEditor, defaultAsObject) {
     var defaultToExample = r.defaultTo(jsonToString(defaultAsObject));
-	jsonEditor.setValue(defaultToExample(localStorage.getItem(key)));
+	jsonEditor.setString(defaultToExample(localStorage.getItem(key)));
 };
 
-loadUserContent('schema', schemaTextarea, defaults.schema);
-loadUserContent('json', jsonTextarea, defaults.json);
+loadUserContent('schema', schemaEditor, defaults.schema);
+loadUserContent('json', jsonEditor, defaults.json);
