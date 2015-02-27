@@ -27,4 +27,4 @@ compile:
 	$(bin)/browserify $(browserify_arguments)
 
 push-to-gh-pages:
-	woodhouse publish alexbepple/how-is-my-json js/bundle.js:js/bundle.js --auth-token $(GH_AUTH_TOKEN)
+	woodhouse publish alexbepple/how-is-my-json index.html:index.html css:css js/bundle.js:js/bundle.js --auth-token $(GH_AUTH_TOKEN)
