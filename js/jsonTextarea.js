@@ -9,7 +9,7 @@ var setClass = function ($el, cssClass, value) {
     $el.addClass(cssClass);
 };
 
-var jsonTextarea = function (elementId) {
+var JsonTextarea = function (elementId) {
     var textarea = document.getElementById(elementId);
     var $textarea = $(textarea);
 
@@ -23,11 +23,28 @@ var jsonTextarea = function (elementId) {
         }
     };
 
-    var validateJson = function() {
+    var validateJson = function () {
         setClass($textarea, 'unparseable', isValid());
     };
 
-    textarea.addEventListener('input', validateJson);
+	var onChange = function (listener) {
+		textarea.addEventListener('input', listener);
+	};
+	var emitChangeEvent = function () {
+		textarea.dispatchEvent(new Event('input'));
+	};
+
+	var setValue = function (value) {
+		textarea.textContent = value;
+		emitChangeEvent();
+	};
+
+	onChange(validateJson);
+
+	return {
+		onChange: onChange,
+		setValue: setValue
+	};
 };
 
-module.exports = jsonTextarea;
+module.exports = JsonTextarea;
