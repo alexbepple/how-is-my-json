@@ -38,12 +38,20 @@ var JsonEditor = function (elementId) {
 		textarea.textContent = value;
 		emitChangeEvent();
 	};
+	var getString = function () {
+		return textarea.value;
+	};
+	var getJson = function () {
+		return parse(getString());
+	};
 
 	onChange(validateJson);
 
 	return {
 		onChange: onChange,
-		setString: setString
+		setString: setString,
+		getString: getString,
+		getJson: getJson
 	};
 };
 
