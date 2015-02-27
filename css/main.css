@@ -48,6 +48,9 @@ h1, h2 {
     margin-bottom: 0.1em;
 }
 
+.greyed-out {
+	opacity: 0.3;
+}
 
 .unparseable, .unparseable:focus {
     border: 2px solid red;

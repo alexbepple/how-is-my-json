@@ -1,13 +1,6 @@
 var r = require('ramda');
+var _$ = require('./jQueryHelper');
 var stripComments = require('strip-json-comments');
-
-var setCssClass = function ($el, cssClass, value) {
-    if (value) {
-        $el.removeClass(cssClass);
-        return;
-    }
-    $el.addClass(cssClass);
-};
 
 var JsonEditor = function (elementId) {
     var textarea = document.getElementById(elementId);
@@ -24,7 +17,7 @@ var JsonEditor = function (elementId) {
     };
 
     var validateJson = function () {
-        setCssClass($textarea, 'unparseable', isValid());
+        _$.setCssClass($textarea, 'unparseable', isValid());
     };
 
 	var onChange = function (listener) {
@@ -48,6 +41,7 @@ var JsonEditor = function (elementId) {
 	onChange(validateJson);
 
 	return {
+		isValid: isValid,
 		onChange: onChange,
 		setString: setString,
 		getString: getString,
