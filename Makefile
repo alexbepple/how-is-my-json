@@ -14,3 +14,6 @@ tdd:
 watchify:
 	./node_modules/.bin/watchify js/main.js -o js/bundle.js
 
+
+dev:
+	bundle exec foreman start -f Procfile.dev
