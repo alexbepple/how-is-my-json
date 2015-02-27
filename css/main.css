@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
 }
+
 html { 
     height: 100%;
 }
@@ -9,50 +10,6 @@ body {
     height: 100%;
     padding: 10px;
     box-sizing: border-box;
-}
-
-/*
- * vertically maximize <main>
- */
-body {
-    display:         flex;
-    display: -webkit-flex;
-            flex-direction: column;
-    -webkit-flex-direction: column;
-}
-main {
-            flex: 1;
-    -webkit-flex: 1;
-}
-
-/*
- * let <div>s in <main> use up all horizontal space
- */
-main {
-    display:         flex;
-    display: -webkit-flex;
-}
-main > div {
-            flex: 1;
-    -webkit-flex: 1;
-}
-
-
-#validationInputs, #validationResultContainer {
-    display:         flex;
-    display: -webkit-flex;
-            flex-direction: column;
-    -webkit-flex-direction: column;
-}
-#validationInputs {
-    margin-right: 20px;
-}
-#validationInputs > textarea, #validationResultContainer > div {
-            flex: 1;
-    -webkit-flex: 1;
-}
-#validationResult {
-	overflow: auto;
 }
 
 footer {
