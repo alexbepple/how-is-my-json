@@ -1,10 +1,9 @@
-src := js
+src := app/js
 test := test
 
 bin := $(shell npm bin)
 run_tests := $(bin)/mocha --check-leaks --recursive $(test) --compilers ls:LiveScript
 foreman := bundle exec foreman
-browserify_arguments := js/main.js -o js/bundle.js
 
 dev:
 	$(foreman) start -f Procfile.dev
@@ -13,18 +12,21 @@ dev:
 test:
 	NODE_PATH=$(src) $(run_tests) --reporter mocha-unfunk-reporter $(args)
 tdd:
-	$(bin)/nodemon --exec 'make test' --ext ls,js --ignore js/bundle.js
+	$(bin)/nodemon --exec 'make test' --ext ls,js --ignore public/app.js
 
-watchify:
-	$(bin)/watchify $(browserify_arguments)
+build-for-dev-continuously:
+	$(bin)/brunch watch --server
 
 
 
-publish: compile
+publish: build-for-production
 	$(foreman) run -e .env.publish make push-to-gh-pages
 
-compile:
-	$(bin)/browserify $(browserify_arguments)
+build-for-production:
+	rm -rf public
+	$(bin)/brunch build --production
+	# This is a workaround for browserify-branch being broken for 'branch build'
+	$(bin)/browserify app/init.js -o public/app.js
 
 push-to-gh-pages:
-	woodhouse publish alexbepple/how-is-my-json index.html:index.html css:css js/bundle.js:js/bundle.js --auth-token $(GH_AUTH_TOKEN)
+	woodhouse publish alexbepple/how-is-my-json public: --auth-token $(GH_AUTH_TOKEN)

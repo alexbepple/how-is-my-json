@@ -1,5 +1,4 @@
 .env.publish
 
-js/bundle.js
 node_modules/
-js/vendor/
+public/

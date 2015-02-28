@@ -1,2 +1,2 @@
 tdd: make tdd
-watchify: make watchify
+brunch: make build-for-dev-continuously

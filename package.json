@@ -13,6 +13,13 @@
     "mocha": "^2.1.0",
     "mocha-unfunk-reporter": "^0.4.0",
     "nodemon": "~1.2.1",
-    "watchify": "^2.3.0"
+
+    "brunch": "^1.7.20",
+    "auto-reload-brunch": ">= 1.0 < 1.8",
+    "browserify-brunch": "^1.7.1",
+    "clean-css-brunch": ">= 1.0 < 1.8",
+    "css-brunch": ">= 1.0 < 1.8",
+    "javascript-brunch": ">= 1.0 < 1.8",
+    "uglify-js-brunch": ">= 1.0 < 1.8"
   }
 }
