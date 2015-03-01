@@ -7,19 +7,15 @@ var schemaEditor = JsonEditor('schema');
 
 var highlighter = require('./imjv-highlighter');
 var revalidate = function () {
-	var json = jsonEditor.getJson();
-	var schema = schemaEditor.getJson();
-	highlighter.validateJsonAgainstSchema(json, schema);
+    var bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid();
+    if (bothInputsValid) {
+        var json = jsonEditor.getJson();
+        var schema = schemaEditor.getJson();
+        highlighter.validateJsonAgainstSchema(json, schema);
+    }
+	_$.setCssClass($('#validationResult'), 'greyed-out', bothInputsValid);
 };
 
-var greyOutValidationResultIfRequirementsUnmet = function () {
-	_$.setCssClass($('#validationResult'), 'greyed-out', 
-				jsonEditor.isValid() && schemaEditor.isValid()
-    );
-};
-
-jsonEditor.onChange(greyOutValidationResultIfRequirementsUnmet);
-schemaEditor.onChange(greyOutValidationResultIfRequirementsUnmet);
 jsonEditor.onChange(revalidate);
 schemaEditor.onChange(revalidate);
 
