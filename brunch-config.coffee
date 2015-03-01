@@ -1,4 +1,5 @@
 exports.config =
+  paths: public: 'build/dev'
   files:
     javascripts:
       joinTo: 'app.js'
@@ -10,3 +11,5 @@ exports.config =
       bundles:
         'app.js':
           entry: 'app/src/main.js'
+
+  overrides: production: paths: public: 'build/prod'
