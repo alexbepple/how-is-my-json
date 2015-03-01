@@ -12,7 +12,7 @@ dev:
 test:
 	NODE_PATH=$(src) $(run_tests) --reporter mocha-unfunk-reporter $(args)
 tdd:
-	$(bin)/nodemon --exec 'make test' --ext ls,js --ignore public/app.js
+	$(bin)/nodemon --exec 'make test' --watch $(src) --watch $(test) --ext ls,js
 
 build-for-dev-continuously:
 	$(bin)/brunch watch --server
