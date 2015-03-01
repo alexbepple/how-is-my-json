@@ -9,6 +9,9 @@ nodemon := $(bin)/nodemon
 
 dev: build-clean build-folder
 	$(foreman) start -f Procfile.dev
+port := 3333
+reload-live:
+	$(bin)/livereloadx -s -p $(port) $(build) > /dev/null
 
 publish: prod
 	$(foreman) run -e .env.publish make push-to-gh-pages
