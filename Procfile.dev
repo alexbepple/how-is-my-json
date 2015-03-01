@@ -1,2 +1,4 @@
 tdd: make tdd
-brunch: make build-for-dev-continuously
+css: make css-continuously
+assets: make assets-continuously
+js: make js-continuously
