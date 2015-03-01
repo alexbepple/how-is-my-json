@@ -7,3 +7,9 @@ exports.config =
 
   modules:
     definition: false
+
+  plugins:
+    browserify:
+      bundles:
+        'app.js':
+          entry: 'app/src/main.js'
