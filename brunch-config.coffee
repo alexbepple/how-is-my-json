@@ -5,9 +5,6 @@ exports.config =
     stylesheets:
       joinTo: 'app.css'
 
-  modules:
-    definition: false
-
   plugins:
     browserify:
       bundles:

@@ -17,7 +17,6 @@
     "brunch": "^1.7.20",
     "auto-reload-brunch": ">= 1.0 < 1.8",
     "browserify-brunch": "^1.7.1",
-    "javascript-brunch": ">= 1.0 < 1.8",
     "uglify-js": "^2.4.16",
     "css-brunch": ">= 1.0 < 1.8",
     "clean-css-brunch": ">= 1.0 < 1.8",
