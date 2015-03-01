@@ -25,8 +25,8 @@ publish: build-for-production
 build-for-production:
 	rm -rf public
 	$(bin)/brunch build --production
-	# This is a workaround for browserify-branch being broken for 'branch build'
-	$(bin)/browserify app/init.js -o public/app.js
+	# This is a workaround for browserify-brunch being broken for 'brunch build'
+	$(bin)/browserify app/init.js | $(bin)/uglifyjs -m -o public/app.js
 
 push-to-gh-pages:
 	woodhouse publish alexbepple/how-is-my-json public: --auth-token $(GH_AUTH_TOKEN)
