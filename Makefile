@@ -7,7 +7,7 @@ foreman := bundle exec foreman
 nodemon := $(bin)/nodemon
 
 
-dev: build-clean build-folder
+dev: build
 	$(foreman) start -f Procfile.dev
 port := 3333
 reload-live:
@@ -42,7 +42,7 @@ assets := $(app)/assets
 assets:
 	cp -R $(assets)/* $(build)
 assets-continuously:
-	$(nodemon) --exec 'make assets' --watch $(assets) --ext '*'
+	fswatch -r $(assets) | xargs -n1 ./update_asset.sh $(assets) $(build)
 
 
 js_bundle := $(build)/app.js
