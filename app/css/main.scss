@@ -11,6 +11,9 @@ header, main h2, footer, textarea, #validationResult {
 /*
  * font matters
  */
+* {
+    font-family: Calibri, 'Lucida Grande', 'Lucida Sans', sans-serif;
+}
 header h1 {
     font-size: large;
     font-weight: normal;
