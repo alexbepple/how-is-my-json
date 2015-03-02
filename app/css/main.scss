@@ -50,9 +50,9 @@ textarea {
     border-top: $textarea-border;
     border-left: $textarea-border;
 
-    .unparseable {
-        border: $textarea-border-style red;
-    }
+}
+.unparseable {
+    border: $textarea-border-style red;
 }
 
 
