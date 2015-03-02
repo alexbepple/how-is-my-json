@@ -8,9 +8,10 @@ html, body {
 body {
     display: flex;
 	flex-direction: column;
-}
-main {
-	flex: 1;
+
+    main {
+        flex: 1;
+    }
 }
 
 /*
@@ -18,9 +19,10 @@ main {
  */
 main {
     display: flex;
-}
-main > div {
-	flex: 1;
+
+    div {
+        flex: 1;
+    }
 }
 
 /*
@@ -29,9 +31,10 @@ main > div {
 main > div {
 	display: flex;
 	flex-direction: column;
-}
-textarea, #validationResult {
-	flex: 1;
+
+    textarea, #validationResult {
+        flex: 1;
+    }
 }
 
 #validationResult {
