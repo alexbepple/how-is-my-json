@@ -26,26 +26,29 @@ footer {
 /*
  * borders
  */
+$section-border: 1px solid $dark-gray1;
 main h2 {
-    border-top: 1px solid rgb(66, 68, 78);
+    border-top: $section-border;
 }
 #validationInputs {
-    border-right: 1px solid rgb(66, 68, 78);
+    border-right: $section-border;
 }
 
 
 /*
  * textareas
  */
+$textarea-border-style: 2px solid;
+$textarea-border: $textarea-border-style $gray1;
 textarea {
     outline: none;
     resize: none;
     border: none;
-    border-top: 2px solid rgb(234, 234, 237);
-    border-left: 2px solid rgb(234, 234, 237);
+    border-top: $textarea-border;
+    border-left: $textarea-border;
 }
 .unparseable {
-    border: 2px solid red;
+    border: $textarea-border-style red;
 }
 
 

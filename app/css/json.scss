@@ -20,7 +20,7 @@
 .array-element:last-of-type::after,
 .key-value-pair:last-of-type::after { content: none; }
 
-.validation-wrong-type { color: #0087cc; }
-.validation-missing { color: #ff7b29; }
-.validation-additional { color: #2db34a; }
+.validation-wrong-type { color: $blue; }
+.validation-missing { color: $orange; }
+.validation-additional { color: $green; }
 

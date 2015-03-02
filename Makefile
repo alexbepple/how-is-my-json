@@ -31,10 +31,10 @@ build: build-clean build-folder assets css js
 css := $(app)/css
 css_bundle := $(build)/app.css
 css:
-	$(bin)/cleancss $(css)/*.css -o $(css_bundle)
+	cat $(css)/*.scss | $(bin)/node-sass | $(bin)/cleancss -o $(css_bundle)
 	$(bin)/autoprefixer $(css_bundle)
 css-continuously:
-	$(nodemon) --exec 'make css' --watch $(css) --ext css
+	$(nodemon) --exec 'make css' --watch $(css) --ext scss
 
 
 src := $(app)/src
