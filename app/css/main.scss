@@ -56,11 +56,19 @@ textarea {
 }
 
 
-footer ul {
+footer {
     display: flex;
-    list-style: none;
-    li:last-child {
+    ul:last-child {
         margin-left: auto;
+    }
+    ul {
+        list-style: none;
+        li {
+            display: inline;
+        }
+        li:nth-child(n+2)::before {
+            content: ' · ';
+        }
     }
 
 }
