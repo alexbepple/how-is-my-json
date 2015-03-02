@@ -3,10 +3,28 @@
     padding: 0;
 }
 
-header, main h2, footer, textarea, #validationResult {
+@mixin default-padding {
     padding: 5px 10px;
 }
+header, footer, textarea, #validationResult {
+    @include default-padding;
+}
 
+@mixin section-header {
+    @include default-padding;
+    color: black;
+    background: $gray2;
+    font-size: large;
+    border-top: $section-border;
+}
+
+$section-border: 1px solid $dark-gray1;
+#validationInputs {
+    border-right: $section-border;
+}
+#validationInputs h2 {
+    @include section-header;
+}
 
 /*
  * font matters
@@ -26,16 +44,6 @@ footer {
 }
 
 
-/*
- * borders
- */
-$section-border: 1px solid $dark-gray1;
-main h2 {
-    border-top: $section-border;
-}
-#validationInputs {
-    border-right: $section-border;
-}
 
 
 /*
@@ -55,6 +63,18 @@ textarea {
     border: $textarea-border-style red;
 }
 
+
+#results {
+    header {
+        @include section-header;
+        display: flex;
+        #summary {
+            display: none;
+            text-align: right;
+            margin-left: auto;
+        }
+    }
+}
 
 footer {
     display: flex;
