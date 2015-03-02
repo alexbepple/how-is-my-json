@@ -53,6 +53,16 @@ textarea {
 }
 
 
+footer ul {
+    display: flex;
+    list-style: none;
+    li:last-child {
+        margin-left: auto;
+    }
+
+}
+
+
 /*
  * misc
  */
