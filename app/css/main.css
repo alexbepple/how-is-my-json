@@ -3,38 +3,64 @@
     padding: 0;
 }
 
-html { 
-    height: 100%;
-}
-body {
-    height: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+header, main h2, footer, textarea, #validationResult {
+    padding: 5px 10px;
 }
 
+
+/*
+ * font matters
+ */
+header h1 {
+    font-size: large;
+    font-weight: normal;
+}
+main h2 {
+    font-size: large;
+}
 footer {
-	margin-top: 10px;
+    font-size: small;
+}
+
+
+/*
+ * borders
+ */
+main h2 {
+    border-top: 1px solid rgb(66, 68, 78);
+}
+#validationInputs {
+    border-right: 1px solid rgb(66, 68, 78);
+}
+
+
+/*
+ * textareas
+ */
+textarea {
+    outline: none;
+    resize: none;
+    border: none;
+    border-top: 2px solid rgb(234, 234, 237);
+    border-left: 2px solid rgb(234, 234, 237);
+}
+.unparseable {
+    border: 2px solid red;
+}
+
+
+/*
+ * misc
+ */
+footer {
 	text-align: right;
 }
 
-h1, h2 {
-    margin-bottom: 0.1em;
-}
-h2 {
-    margin-top: 0.2em;
-}
 a {
 	text-decoration: none;
 }
-
 
 .greyed-out {
 	opacity: 0.3;
 }
 
-.unparseable, .unparseable:focus {
-    border: 2px solid red;
-    border-radius: 3px;
-    box-shadow: 0 0 10px red;
-    outline: none;
-}

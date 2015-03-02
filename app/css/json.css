@@ -11,16 +11,16 @@
 
 .key::after { content: ': '; }
 
-.array-element, .key-value-pair { 
+.array-element, .key-value-pair {
     display: block;
     padding-left: 20px;
 }
-.array-element::after, 
+.array-element::after,
 .key-value-pair::after { content: ', '; }
-.array-element:last-of-type::after, 
+.array-element:last-of-type::after,
 .key-value-pair:last-of-type::after { content: none; }
 
-.validation-wrong-type { color: orange; }
-.validation-missing { color: red; }
-.validation-additional { color: green; }
+.validation-wrong-type { color: #0087cc; }
+.validation-missing { color: #ff7b29; }
+.validation-additional { color: #2db34a; }
 
