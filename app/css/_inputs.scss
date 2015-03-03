@@ -1,0 +1,19 @@
+#validationInputs h2 {
+    @include section-header;
+}
+
+$textarea-border-style: 2px solid;
+$textarea-border: $textarea-border-style $gray1;
+textarea {
+    @include default-padding;
+    background: $gray1;
+    outline: none;
+    resize: none;
+    border: none;
+    border-top: $textarea-border;
+    border-left: $textarea-border;
+
+}
+.unparseable {
+    border: $textarea-border-style red;
+}

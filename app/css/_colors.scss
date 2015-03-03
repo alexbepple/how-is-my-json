@@ -6,20 +6,3 @@ $dark-gray1: rgb(66, 68, 78);
 $orange: #ff7b29;
 $blue: #0087cc;
 $green: #2db34a;
-
-header, footer {
-    background: $dark-gray1;
-}
-header {
-    color: white;
-}
-footer, footer a {
-    color: $dark-gray2;
-}
-
-main, #validationResult.greyed-out {
-    background: $gray2;
-}
-textarea, #validationResult {
-    background: $gray1;
-}

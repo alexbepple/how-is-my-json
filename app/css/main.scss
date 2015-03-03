@@ -3,15 +3,10 @@
     padding: 0;
 }
 
-@import 'overall-layout';
 @import 'colors';
-@import 'json';
 
 @mixin default-padding {
     padding: 5px 10px;
-}
-header, footer, textarea, #validationResult {
-    @include default-padding;
 }
 
 @mixin section-header {
@@ -22,94 +17,34 @@ header, footer, textarea, #validationResult {
     border-top: $section-border;
 }
 
+
+@import 'overall-layout';
 $section-border: 1px solid $dark-gray1;
 #validationInputs {
     border-right: $section-border;
 }
-#validationInputs h2 {
-    @include section-header;
-}
 
-/*
- * font matters
- */
+
 * {
     font-family: Calibri, 'Lucida Grande', 'Lucida Sans', sans-serif;
 }
-header h1 {
-    font-size: large;
-    font-weight: normal;
-}
-main h2 {
-    font-size: large;
-}
-footer {
-    font-size: small;
-}
-
-
-
-
-/*
- * textareas
- */
-$textarea-border-style: 2px solid;
-$textarea-border: $textarea-border-style $gray1;
-textarea {
-    outline: none;
-    resize: none;
-    border: none;
-    border-top: $textarea-border;
-    border-left: $textarea-border;
-
-}
-.unparseable {
-    border: $textarea-border-style red;
-}
-
-
-#results {
-    header {
-        @include section-header;
-        display: flex;
-        #summary {
-            display: none;
-            text-align: right;
-            margin-left: auto;
-        }
-    }
-}
-
-footer {
-    display: flex;
-    ul:last-child {
-        margin-left: auto;
-    }
-    ul {
-        list-style: none;
-        li {
-            display: inline;
-        }
-        li:nth-child(n+2)::before {
-            content: ' · ';
-        }
-    }
-
-}
-
-
-/*
- * misc
- */
-footer {
-	text-align: right;
-}
-
 a {
 	text-decoration: none;
 }
 
-.greyed-out {
-	opacity: 0.3;
+header {
+    @include default-padding;
+    background: $dark-gray1;
+    color: white;
+    h1 {
+        font-size: large;
+        font-weight: normal;
+    }
 }
 
+main {
+    background: $gray2;
+}
+@import 'inputs';
+@import 'results';
+@import 'footer';

@@ -1,0 +1,26 @@
+@import 'json';
+
+#results {
+    header {
+        @include section-header;
+        display: flex;
+        #summary {
+            display: none;
+            text-align: right;
+            margin-left: auto;
+        }
+
+        h2 {
+            font-size: inherit;
+        }
+    }
+}
+
+#validationResult {
+    @include default-padding;
+    background: $gray1;
+}
+#validationResult.greyed-out {
+    background: $gray2;
+	opacity: 0.3;
+}
