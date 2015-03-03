@@ -20,15 +20,22 @@
 	<textarea id='schema'></textarea>
 </div>
 
-<div>
-	<h2>Validation result</h2>
+<div id='results'>
+    <header>
+        <h2>Validation result</h2>
+        <div id='summary'>
+            3 <span class='fa fa-exclamation-circle validation-wrong-type'></span>
+            12 <span class="fa fa-plus-circle validation-additional"></span>
+            1 <span class="fa fa-minus-circle validation-missing"></span>
+        </div>
+    </header>
 	<div id='validationResult'></div>
 </div>
 </main>
 
 <footer>
 <ul>
-    <li>Made with <span class="fa fa-heart"/> in <a href='//www.hamburg.de/'>Hamburg <span class="fa fa-anchor"/></a></li>
+    <li>Made with <span class="fa fa-heart"></span> in <a href='//www.hamburg.de/'>Hamburg <span class="fa fa-anchor"></span></a></li>
 </ul>
 <ul>
     <li><a href='//github.com/alexbepple/how-is-my-json'>GitHub Project</a></li>
