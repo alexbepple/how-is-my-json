@@ -31,7 +31,7 @@ build: build-clean build-folder assets css js
 css := $(app)/css
 css_bundle := $(build)/app.css
 css:
-	cat $(css)/*.scss | $(bin)/node-sass | $(bin)/cleancss -o $(css_bundle)
+	$(bin)/node-sass $(css)/main.scss --stdout | $(bin)/cleancss -o $(css_bundle)
 	$(bin)/autoprefixer $(css_bundle)
 css-continuously:
 	$(nodemon) --exec 'make css' --watch $(css) --ext scss
