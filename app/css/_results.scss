@@ -1,19 +1,19 @@
-@import 'json';
-
 #results {
     header {
         @include section-header;
         display: flex;
-        #summary {
-            display: none;
-            text-align: right;
-            margin-left: auto;
-        }
 
         h2 {
             font-size: inherit;
         }
     }
+    @import 'json';
+}
+
+#summary {
+    display: none;
+    text-align: right;
+    margin-left: auto;
 }
 
 #validationResult {
