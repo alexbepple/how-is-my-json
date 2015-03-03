@@ -19,8 +19,9 @@
 #validationResult {
     @include default-padding;
     background: $gray1;
-}
-#validationResult.greyed-out {
-    background: $gray2;
-	opacity: 0.3;
+
+    &.greyed-out {
+        background: $gray2;
+        opacity: 0.3;
+    }
 }

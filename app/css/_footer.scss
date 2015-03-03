@@ -3,6 +3,11 @@ footer {
     font-size: small;
 	text-align: right;
 
+    background: $dark-gray1;
+    &, & a {
+        color: $dark-gray2;
+    }
+
     display: flex;
     ul:last-child {
         margin-left: auto;
@@ -19,7 +24,3 @@ footer {
     }
 }
 
-footer, footer a {
-    background: $dark-gray1;
-    color: $dark-gray2;
-}
