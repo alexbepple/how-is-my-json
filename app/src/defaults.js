@@ -3,38 +3,38 @@ exports.json = {
     additional: null,
     shouldBeString: 1,
     nestedObject: {
-        shouldBeNumber: 'but is string', 
+        shouldBeNumber: 'but is string',
         additional: null
     },
     arrayOfObjects: [
-        {correct: true, additional: null},
-        {correct: true, additional: null}
+        {correct: true, additional: null, shouldBeBoolean: null},
+        {correct: true, additional: null, shouldBeBoolean: null}
     ],
     arrayOfWhatShouldBeStrings: [1, 2]
 };
 
 exports.schema = {
-    type: 'object', 
-    additionalProperties: false, 
+    type: 'object',
+    additionalProperties: false,
     properties: {
         correct: {
-            type: 'boolean', 
+            type: 'boolean',
             required: true
-        }, 
+        },
         shouldBeString: {
-            type: 'string', 
+            type: 'string',
             required: true
-        }, 
-        missing: { required: true }, 
+        },
+        missing: { required: true },
         nestedObject: {
-            type: 'object', 
+            type: 'object',
             required: true,
-            additionalProperties: false, 
+            additionalProperties: false,
             properties: {
                 shouldBeNumber: {
-                    type: 'number', 
+                    type: 'number',
                     required: true
-                }, 
+                },
                 missing: { required: true }
             }
         },
@@ -46,6 +46,7 @@ exports.schema = {
                 additionalProperties: false,
                 properties: {
                     correct: { type: 'boolean' },
+                    shouldBeBoolean: { type: 'boolean' },
                     missing: { required: true }
                 }
             }
