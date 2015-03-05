@@ -23,10 +23,14 @@
 <div id='results'>
     <header>
         <h2>Validation result</h2>
-        <div id='summary'>
-            3 <span class='fa fa-exclamation-circle validation-wrong-type'></span>
-            12 <span class="fa fa-plus-circle validation-additional"></span>
-            1 <span class="fa fa-minus-circle validation-missing"></span>
+        <div class='summary invalid'>
+            <span id='countWrongType'></span> <span class='fa fa-exclamation-circle validation-wrong-type'></span>
+            <span id='countMissing'></span> <span class='fa fa-minus-circle validation-missing'></span>
+            <span id='countAdditional'></span> <span class='fa fa-plus-circle validation-additional'></span>
+        </div>
+        <div class='summary valid'>
+            <span class='icon fa fa-check'></span>
+            That’s some good-looking JSON.
         </div>
     </header>
 	<div id='validationResult'></div>
@@ -35,7 +39,7 @@
 
 <footer>
 <ul>
-    <li>Made with <span class="fa fa-heart"></span> in <a href='//www.hamburg.de/'>Hamburg <span class="fa fa-anchor"></span></a></li>
+    <li>Made with <span class='fa fa-heart'></span> in <a href='//www.hamburg.de/'>Hamburg <span class='fa fa-anchor'></span></a></li>
 </ul>
 <ul>
     <li><a href='//github.com/alexbepple/how-is-my-json'>GitHub Project</a></li>

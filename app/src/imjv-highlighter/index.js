@@ -21,6 +21,8 @@ var validateJsonAgainstSchema = function (json, schema) {
     var isValid = validate(json);
 
     if (isValid) {
+        $('.summary.invalid').hide();
+        //$('.summary.valid').show();
         displayJson(json);
         return;
     }
@@ -40,7 +42,7 @@ var validateJsonAgainstSchema = function (json, schema) {
     var jsonWithMissingProperties = r.pipe(
         r.filter(isMissing),
         r.map(m.errorToPathComponents),
-        r.map(r.join('.')), 
+        r.map(r.join('.')),
         r.reduce(addPathTo, json)
     )(validate.errors);
 
@@ -49,10 +51,19 @@ var validateJsonAgainstSchema = function (json, schema) {
     var addClass = function (cssClass, selectors) {
         $(r.join(',', selectors)).addClass(cssClass);
     };
+
+    $('.summary.valid').hide();
+    //$('.summary.invalid').show();
+    $('#countWrongType').text('' + selectorsWrongType.length);
     addClass('validation-wrong-type', selectorsWrongType);
+
+    $('#countMissing').text('' + selectorsMissing.length);
     addClass('validation-missing', selectorsMissing);
-    addClass('validation-additional', 
-             additional.selectorsForAdditionalProperties(schema, json, validate.errors));
+
+    var selectorsAdditional = additional
+        .selectorsForAdditionalProperties(schema, json, validate.errors);
+    $('#countAdditional').text('' + selectorsAdditional.length);
+    addClass('validation-additional', selectorsAdditional);
 };
 
 module.exports = {

@@ -10,11 +10,15 @@
     @import 'json';
 }
 
-#summary {
-    display: none;
+.summary {
     font-size: medium;
     text-align: right;
     margin-left: auto;
+    display: none;
+
+    &.valid .icon {
+        color: $green;
+    }
 }
 
 #validationResult {
