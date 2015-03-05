@@ -1,0 +1,4 @@
+camelCase for HTML ids
+hyphen-case for HTML classes
+
+Prefer single quotes.
