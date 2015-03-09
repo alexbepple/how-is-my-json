@@ -25,8 +25,13 @@ build-clean:
 	rm -rf $(build)
 build-folder:
 	mkdir -p $(build)
-build: build-clean build-folder assets css js
+build: build-clean build-folder assets html css js
 
+
+html:
+	$(bin)/jade app/html/index.jade --pretty --out $(build) $(args)
+html-continuously:
+	make html args='--watch'
 
 css := $(app)/css
 css_bundle := $(build)/app.css

@@ -10,7 +10,7 @@ indent_style = space
 indent_size = 4
 
 
-[brunch-config.coffee]
+[*.jade]
 indent_size = 2
 
 
