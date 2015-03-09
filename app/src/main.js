@@ -28,7 +28,7 @@ var storeSchema = function () {
 };
 
 var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
-var defaults = require('./defaults');
+var defaults = require('./defaults.ls');
 
 var loadUserContent = function (key, jsonEditor, defaultAsObject) {
 	var defaultToExample = r.defaultTo(jsonToString(defaultAsObject));

@@ -47,11 +47,11 @@ css-continuously:
 src := $(app)/src
 js_bundle := $(build)/app.js
 js:
-	$(bin)/browserify $(src)/main.js -o $(js_bundle)
+	$(bin)/browserify -t liveify $(src)/main.js -o $(js_bundle)
 js-uglify:
 	$(bin)/uglifyjs $(js_bundle) -o $(js_bundle) --mangle
 js-continuously:
-	$(nodemon) --exec 'make js' --watch $(src) --ext js
+	$(nodemon) --exec 'make js' --watch $(src) --ext ls,js
 
 
 test := test
