@@ -30,7 +30,7 @@ build: build-clean build-folder assets html css js
 
 
 html:
-	$(bin)/jade app/html/index.jade --obj '{env: "$(env)"}' --pretty --out $(build) $(args)
+	$(bin)/jade app/html/index.jade --obj env/$(env).json --pretty --out $(build) $(args)
 html-continuously:
 	make html args='--watch'
 
