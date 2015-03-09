@@ -1,63 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8'>
-<title>How is my JSON?</title>
-<link rel='stylesheet' href='app.css'>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>How is my JSON?</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>How is my JSON?</header>
+    <main>
+      <div id="validationInputs">
+        <h2>JSON to validate</h2>
+        <textarea id="jsonToValidate"></textarea>
+        <h2>JSON Schema</h2>
+        <textarea id="schema"></textarea>
+      </div>
+      <div id="results">
+        <header>
+          <h2>Validation result</h2>
+          <div class="summary invalid"><span id="countWrongType"></span> <span class="fa fa-exclamation-circle validation-wrong-type"></span> <span id="countMissing"></span> <span class="fa fa-minus-circle validation-missing"></span> <span id="countAdditional"></span> <span class="fa fa-plus-circle validation-additional"></span>
+          </div>
+          <div class="summary valid"><span class="icon fa fa-check"></span>That’s some good-looking JSON.</div>
+        </header>
+        <div id="validationResult"></div>
+      </div>
+    </main>
+    <footer>
+      <ul>
+        <li>Made with <span class="fa fa-heart"></span> in <a href="//www.hamburg.de/">Hamburg <span class="fa fa-anchor"></span></a>
+        </li>
+      </ul>
+      <ul>
+        <li><a href="//github.com/alexbepple/how-is-my-json">GitHub Project</a></li>
+        <li><a href="//github.com/alexbepple/how-is-my-json/issues">Report an issue</a></li>
+      </ul>
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-<header>
-<h1>How is my JSON?</h1>
-</header>
+ga('create', 'UA-60206746-1', 'auto');
+ga('send', 'pageview');
 
-<main>
-<div id='validationInputs'>
-	<h2>JSON to validate</h2>
-	<textarea id='jsonToValidate'></textarea>
-	<h2>JSON Schema</h2>
-	<textarea id='schema'></textarea>
-</div>
-
-<div id='results'>
-    <header>
-        <h2>Validation result</h2>
-        <div id='summary'>
-            3 <span class='fa fa-exclamation-circle validation-wrong-type'></span>
-            12 <span class="fa fa-plus-circle validation-additional"></span>
-            1 <span class="fa fa-minus-circle validation-missing"></span>
-        </div>
-    </header>
-	<div id='validationResult'></div>
-</div>
-</main>
-
-<footer>
-<ul>
-    <li>Made with <span class="fa fa-heart"></span> in <a href='//www.hamburg.de/'>Hamburg <span class="fa fa-anchor"></span></a></li>
-</ul>
-<ul>
-    <li><a href='//github.com/alexbepple/how-is-my-json'>GitHub Project</a></li>
-    <li><a href='//github.com/alexbepple/how-is-my-json/issues'>Report an issue</a></li>
-</ul>
-</footer>
-
-<script src='//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-<script>window.jQuery || document.write('<script src="vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
-<script src='app.js'></script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-60206746-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-</body>
+    </script>
+  </body>
 </html>
-
