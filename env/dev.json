@@ -1,4 +1,5 @@
 {
     "env": "dev",
-    "jQuery": "bower/jquery/dist/jquery.js"
+    "jQuery": "bower/jquery/dist/jquery.js",
+    "fontAwesome": "bower/components-font-awesome/css/font-awesome.min.css"
 }
