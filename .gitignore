@@ -1,4 +1,5 @@
 .env.publish
 
+bower_components/
 node_modules/
 build/

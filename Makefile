@@ -9,6 +9,7 @@ nodemon := $(bin)/nodemon
 
 
 dev: build
+	ln -s ../../bower_components $(build)/bower
 	$(foreman) start -f Procfile.dev
 port := 3333
 reload-live:
