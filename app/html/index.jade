@@ -25,5 +25,7 @@ html
       window.jQuery || document.write('<script src="vendor/jquery-1.11.2.min.js"><\/script>')
 
     script(src='app.js')
-    script
-      include google-analytics.js
+
+    if env != 'dev'
+      script
+        include google-analytics.js

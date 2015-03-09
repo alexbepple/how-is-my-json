@@ -1,4 +1,5 @@
 app := app
+env ?= dev
 build ?= build/dev
 prod_build := build/prod
 
@@ -16,7 +17,7 @@ reload-live:
 publish: prod
 	$(foreman) run -e .env.publish make push-to-gh-pages
 prod:
-	build=$(prod_build) make build js-uglify
+	env=prod build=$(prod_build) make build js-uglify
 push-to-gh-pages:
 	woodhouse publish alexbepple/how-is-my-json $(prod_build): --auth-token $(GH_AUTH_TOKEN)
 
@@ -29,7 +30,7 @@ build: build-clean build-folder assets html css js
 
 
 html:
-	$(bin)/jade app/html/index.jade --pretty --out $(build) $(args)
+	$(bin)/jade app/html/index.jade --obj '{env: "$(env)"}' --pretty --out $(build) $(args)
 html-continuously:
 	make html args='--watch'
 
