@@ -1,5 +1,5 @@
-tdd: make tdd
 html: make html-continuously
-css: make css-continuously
-js: make js-continuously
-reload: make reload-live
+css: sleep 0.1 && make css-continuously
+js: sleep 0.2 && make js-continuously
+tdd: sleep 0.3 && make tdd
+reload: sleep 1 && make reload-live
