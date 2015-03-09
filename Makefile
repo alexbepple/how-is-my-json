@@ -27,7 +27,7 @@ build-clean:
 	rm -rf $(build)
 build-folder:
 	mkdir -p $(build)
-build: build-clean build-folder assets html css js
+build: build-clean build-folder html css js
 
 
 html:
@@ -45,13 +45,6 @@ css-continuously:
 
 
 src := $(app)/src
-assets := $(app)/assets
-assets:
-	cp -R $(assets)/* $(build)
-assets-continuously:
-	fswatch -r $(assets) | xargs -n1 ./update_asset.sh $(assets) $(build)
-
-
 js_bundle := $(build)/app.js
 js:
 	$(bin)/browserify $(src)/main.js -o $(js_bundle)
