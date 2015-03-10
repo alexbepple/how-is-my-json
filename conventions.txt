@@ -1,3 +1,10 @@
+# UX
+
+Use the lightest gray to mean editable elements.
+
+
+# Code
+
 camelCase for HTML ids
 hyphen-case for HTML classes
 
