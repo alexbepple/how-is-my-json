@@ -21,7 +21,7 @@ var validateJsonAgainstSchema = function (json, schema) {
     var isValid = validate(json);
 
     if (isValid) {
-        $('.summary.invalid').hide();
+        $('.summary').hide();
         $('.summary.valid').show();
         displayJson(json);
         return;
@@ -52,7 +52,7 @@ var validateJsonAgainstSchema = function (json, schema) {
         $(r.join(',', selectors)).addClass(cssClass);
     };
 
-    $('.summary.valid').hide();
+    $('.summary').hide();
     $('.summary.invalid').show();
     $('#countWrongType').text('' + selectorsWrongType.length);
     addClass('validation-wrong-type', selectorsWrongType);

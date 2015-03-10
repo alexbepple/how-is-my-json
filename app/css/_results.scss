@@ -15,9 +15,8 @@
     text-align: right;
     margin-left: auto;
 
-    &.valid .icon {
-        color: $green;
-    }
+    &.valid .icon { color: $green; }
+    &.unmet-preconditions .icon { color: $red; }
 }
 
 #validationResult {

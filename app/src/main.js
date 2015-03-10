@@ -12,6 +12,9 @@ var revalidate = function () {
         var json = jsonEditor.getJson();
         var schema = schemaEditor.getJson();
         highlighter.validateJsonAgainstSchema(json, schema);
+    } else {
+        $('.summary').hide();
+        $('.summary.unmet-preconditions').show();
     }
 	_$.setCssClass($('#validationResult'), 'greyed-out', bothInputsValid);
 };
