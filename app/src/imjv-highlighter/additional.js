@@ -20,28 +20,26 @@ var objectPathToSchemaPath = function (objectPath) {
     if (objectPath === '')
         return 'properties';
     return r.pipe(
-        r.split('.'),
+        m.pathToComponents,
         r.map(m.appendStr('.properties')),
         r.prepend('properties'),
-        r.join('.'),
+        m.componentsToPath,
         r.replace(/properties\.\*/g, 'items')
     )(objectPath);
 };
 var propertiesInSchema = r.useWith(propertiesInObject, r.identity, objectPathToSchemaPath);
 var selectorsForAdditionalProperties = function (schema, json, errors) {
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
-    var excessSubpaths = pathsOfAdditionalProperties(
+    var additionalSubpaths = pathsOfAdditionalProperties(
         propertiesInObject(json),
         propertiesInSchema(schema)
     );
     return r.pipe(
         r.filter(hasAdditionalProperties),
-        r.map(m.errorToPathComponents),
-        r.map(r.join('.')),
-        r.map(excessSubpaths),
+        r.map(m.errorToPath),
+        r.map(additionalSubpaths),
         r.flatten,
-        r.map(r.split('.')),
-        r.map(m.pathComponentsToSelector),
+        r.map(m.pathToSelector),
         r.uniq
     )(errors);
 };
@@ -52,3 +50,4 @@ module.exports = {
     objectPathToSchemaPath: objectPathToSchemaPath,
     pathsOfAdditionalProperties: pathsOfAdditionalProperties
 };
+

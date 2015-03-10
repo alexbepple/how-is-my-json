@@ -8,14 +8,26 @@ var prependPath = r.curry(function (parentPath, subpath) {
     return r.join('.')([parentPath, subpath]);
 });
 
+var pathToComponents = r.split('.');
+var componentsToPath = r.join('.');
+
 var errorToPathComponents = r.pipe(
-    r.prop('field'), 
-    r.split('.'), 
-    r.tail);
+    r.prop('field'),
+    pathToComponents,
+    r.tail
+);
+var errorToPath = r.pipe(
+    errorToPathComponents,
+    componentsToPath
+);
 var pathComponentsToSelector = r.pipe(
-    r.map(prependStr('.')), 
+    r.map(prependStr('.')),
     r.join(' '),
     r.replace(/\*/g, 'array-element')
+);
+var pathToSelector = r.pipe(
+    pathToComponents,
+    pathComponentsToSelector
 );
 var errorsToSelectors = r.pipe(
     r.map(errorToPathComponents),
@@ -28,8 +40,13 @@ module.exports = {
     appendStr: appendStr,
 
     errorToPathComponents: errorToPathComponents,
+    errorToPath: errorToPath,
     pathComponentsToSelector: pathComponentsToSelector,
+    pathToSelector: pathToSelector,
     errorsToSelectors: errorsToSelectors,
 
-    prependPath: prependPath
+    prependPath: prependPath,
+
+    pathToComponents: pathToComponents,
+    componentsToPath: componentsToPath
 };
