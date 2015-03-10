@@ -1,20 +1,22 @@
 #results {
     header {
         @include section-header;
-        display: flex;
-
-        h2 {
-            font-size: inherit;
-        }
     }
     @import 'json';
 }
 
 .summary {
-    font-size: medium;
-    text-align: right;
-    margin-left: auto;
-
+    display: none;
+    ul {
+        list-style: none;
+        li {
+            display: inline;
+        }
+        li:nth-child(n+2)::before {
+            content: ' / ';
+            color: $dark-text-color;
+        }
+    }
     &.valid .icon { color: $green; }
     &.unmet-preconditions .icon { color: $red; }
 }

@@ -1,18 +1,16 @@
 #results
   header
-    h2 Validation result
     .summary.invalid
-      span#countWrongType
-      = ' '
-      span.fa.fa-exclamation-circle.validation-wrong-type
-      = ' '
-      span#countMissing
-      = ' '
-      span.fa.fa-minus-circle.validation-missing
-      = ' '
-      span#countAdditional
-      = ' '
-      span.fa.fa-plus-circle.validation-additional
+      ul
+        li.validation-wrong-type
+          span#countWrongType
+          = ' wrong'
+        li.validation-missing
+          span#countMissing
+          = ' missing'
+        li.validation-additional
+          span#countAdditional
+          = ' additional'
 
     .summary.valid
       span.icon.fa.fa-check
