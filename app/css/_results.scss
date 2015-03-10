@@ -5,21 +5,7 @@
     @import 'json';
 }
 
-.summary {
-    display: none;
-    ul {
-        list-style: none;
-        li {
-            display: inline;
-        }
-        li:nth-child(n+2)::before {
-            content: ' / ';
-            color: $dark-text-color;
-        }
-    }
-    &.valid .icon { color: $green; }
-    &.unmet-preconditions .icon { color: $red; }
-}
+@import 'summary';
 
 #validationResult {
     @include default-padding;
@@ -30,3 +16,4 @@
         opacity: 0.3;
     }
 }
+

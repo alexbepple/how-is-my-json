@@ -1,0 +1,20 @@
+.summary.invalid
+  ul
+    li.validation-wrong-type
+      span#countWrongType
+      = ' wrong'
+    li.validation-missing
+      span#countMissing
+      = ' missing'
+    li.validation-additional
+      span#countAdditional
+      = ' additional'
+
+.summary.valid
+  span.icon.fa.fa-check
+  = ' That’s some good-looking JSON.'
+
+.summary.unmet-preconditions
+  span.icon.fa.fa-warning
+  = ' Do your part first.'
+
