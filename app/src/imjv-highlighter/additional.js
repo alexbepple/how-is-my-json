@@ -17,7 +17,7 @@ var propertiesInObject = r.curry(function (object, path) {
     )(path);
 });
 var objectPathToSchemaPath = function (objectPath) {
-    if (objectPath === '') 
+    if (objectPath === '')
         return 'properties';
     return r.pipe(
         r.split('.'),
@@ -30,7 +30,7 @@ var objectPathToSchemaPath = function (objectPath) {
 var propertiesInSchema = r.useWith(propertiesInObject, r.identity, objectPathToSchemaPath);
 var selectorsForAdditionalProperties = function (schema, json, errors) {
     var hasAdditionalProperties = r.propEq('message', 'has additional properties');
-    var pathsOfAdditionalPropertiesOf = pathsOfAdditionalProperties(
+    var excessSubpaths = pathsOfAdditionalProperties(
         propertiesInObject(json),
         propertiesInSchema(schema)
     );
@@ -38,10 +38,11 @@ var selectorsForAdditionalProperties = function (schema, json, errors) {
         r.filter(hasAdditionalProperties),
         r.map(m.errorToPathComponents),
         r.map(r.join('.')),
-        r.map(pathsOfAdditionalPropertiesOf),
+        r.map(excessSubpaths),
         r.flatten,
         r.map(r.split('.')),
-        r.map(m.pathComponentsToSelector)
+        r.map(m.pathComponentsToSelector),
+        r.uniq
     )(errors);
 };
 

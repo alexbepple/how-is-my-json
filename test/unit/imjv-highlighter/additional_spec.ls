@@ -1,7 +1,7 @@
 require! {
     'imjv-highlighter/additional':h
     ramda:r
-    {assertThat, equalTo}: hamjest
+    {assertThat, equalTo, hasSize}: hamjest
 }
 
 describe 'Highlighter' ->
@@ -12,6 +12,16 @@ describe 'Highlighter' ->
         assertThat h.selectorsForAdditionalProperties(
             relevantSchemaExcerpt, json, imjvErrors
         ), equalTo ['.a .a']
+
+    specify 'only returns unique selectors' ->
+        relevantSchemaExcerpt = properties: {}
+        json = a: null
+        imjvErrors =
+            * field: 'data', message: 'has additional properties'
+            * field: 'data', message: 'has additional properties'
+        assertThat h.selectorsForAdditionalProperties(
+            relevantSchemaExcerpt, json, imjvErrors
+        ), hasSize 1
 
     describe 'lists properties' ->
         specify 'at top level' ->
