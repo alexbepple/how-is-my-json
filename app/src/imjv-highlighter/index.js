@@ -16,13 +16,12 @@ var displayJson = function (json) {
     resultContainer.appendChild(jsonToDom(json));
 };
 
-var validateJsonAgainstSchema = function (json, schema) {
+var validateJsonAgainstSchema = function (json, schema, summary) {
     var validate = validator(schema);
     var isValid = validate(json);
 
     if (isValid) {
-        $('.summary').hide();
-        $('.summary.valid').show();
+        summary.showValid();
         displayJson(json);
         return;
     }
@@ -52,18 +51,18 @@ var validateJsonAgainstSchema = function (json, schema) {
         $(r.join(',', selectors)).addClass(cssClass);
     };
 
-    $('.summary').hide();
-    $('.summary.invalid').show();
-    $('#countWrongType').text('' + selectorsWrongType.length);
-    addClass('validation-wrong-type', selectorsWrongType);
-
-    $('#countMissing').text('' + selectorsMissing.length);
-    addClass('validation-missing', selectorsMissing);
-
     var selectorsAdditional = additional
         .selectorsForAdditionalProperties(schema, json, validate.errors);
-    $('#countAdditional').text('' + selectorsAdditional.length);
+
+    addClass('validation-wrong-type', selectorsWrongType);
+    addClass('validation-missing', selectorsMissing);
     addClass('validation-additional', selectorsAdditional);
+
+    summary.showInvalid({
+        wrong: selectorsWrongType.length,
+        missing: selectorsMissing.length,
+        additional: selectorsAdditional.length
+    });
 };
 
 module.exports = {

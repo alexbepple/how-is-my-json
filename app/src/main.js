@@ -5,16 +5,17 @@ var JsonEditor = require('./jsonEditor');
 var jsonEditor = JsonEditor('jsonToValidate');
 var schemaEditor = JsonEditor('schema');
 
+var summary = require('./summary.ls')();
+
 var highlighter = require('./imjv-highlighter');
 var revalidate = function () {
     var bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid();
     if (bothInputsValid) {
         var json = jsonEditor.getJson();
         var schema = schemaEditor.getJson();
-        highlighter.validateJsonAgainstSchema(json, schema);
+        highlighter.validateJsonAgainstSchema(json, schema, summary);
     } else {
-        $('.summary').hide();
-        $('.summary.unmet-preconditions').show();
+        summary.showUnmetPreconditions();
     }
 	_$.setCssClass($('#validationResult'), 'greyed-out', bothInputsValid);
 };
