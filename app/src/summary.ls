@@ -6,7 +6,7 @@ require! {
 Summary = ->
     clearSummary = -> $('.summary').hide()
 
-    errorsSummary = $('.summary.invalid')
+    errorsSummary = $('.summary.errors')
     errors = errorsSummary.children 'ul'
 
     appendErrorInfo = (value, template, cssClass) ->
