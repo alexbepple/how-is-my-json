@@ -10,17 +10,26 @@
     <header>How is my JSON?</header>
     <main>
       <div id="validationInputs">
-        <h2>JSON to validate</h2>
+        <h2>JSON</h2>
         <textarea id="jsonToValidate"></textarea>
         <h2>JSON Schema</h2>
         <textarea id="schema"></textarea>
       </div>
       <div id="results">
         <header>
-          <h2>Validation result</h2>
-          <div class="summary invalid"><span id="countWrongType"></span> <span class="fa fa-exclamation-circle validation-wrong-type"></span> <span id="countMissing"></span> <span class="fa fa-minus-circle validation-missing"></span> <span id="countAdditional"></span> <span class="fa fa-plus-circle validation-additional"></span>
+          <div class="summary invalid">
+            <ul>
+              <li class="validation-wrong-type"><span id="countWrongType"></span> wrong
+              </li>
+              <li class="validation-missing"><span class="separator"> / </span><span id="countMissing"></span> missing
+              </li>
+              <li class="validation-additional"><span class="separator"> / </span><span id="countAdditional"></span> additional
+              </li>
+            </ul>
           </div>
           <div class="summary valid"><span class="icon fa fa-check"></span> That’s some good-looking JSON.
+          </div>
+          <div class="summary unmet-preconditions"><span class="icon fa fa-warning"></span> Do your part first.
           </div>
         </header>
         <div id="validationResult"></div>
