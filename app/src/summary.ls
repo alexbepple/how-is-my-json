@@ -1,7 +1,21 @@
+require! {
+    util
+    crel
+}
 
 Summary = ->
     clearSummary = -> $('.summary').hide()
-    setNumberValue = (selector, value) -> $(selector).text('' + value);
+
+    errorsSummary = $('.summary.invalid')
+    errors = errorsSummary.children 'ul'
+
+    appendErrorInfo = (value, template, cssClass) ->
+        if value > 0
+            errors.append crel(
+                'li', class:cssClass,
+                    util.format(template, value),
+                    crel 'span', class:'separator', ' / '
+            )
 
     showUnmetPreconditions: ->
         clearSummary()
@@ -11,29 +25,14 @@ Summary = ->
         $('.summary.valid').show()
     showInvalid: ({wrong, missing, additional}) ->
         clearSummary()
-        $('.summary.invalid').show()
+        errors.children().remove()
 
-        $('.summary.invalid li .separator').hide()
+        appendErrorInfo wrong, '%s wrong', 'validation-wrong-type'
+        appendErrorInfo missing, '%s missing', 'validation-missing'
+        appendErrorInfo additional, '%s additional', 'validation-additional'
 
-        if wrong == 0
-            $('.summary.invalid .validation-wrong-type').hide()
-        else
-            $('.summary.invalid .validation-wrong-type').show()
-        setNumberValue('#countWrongType', wrong)
-
-        if missing == 0
-            $('.summary.invalid .validation-missing').hide()
-        else
-            $('.summary.invalid .validation-missing').show()
-        setNumberValue('#countMissing', missing)
-
-        if additional == 0
-            $('.summary.invalid .validation-additional').hide()
-        else
-            $('.summary.invalid .validation-additional').show()
-        setNumberValue('#countAdditional', additional)
-
-        $('.summary.invalid li:visible').slice(1).find('.separator').show()
+        errors.find('.separator').last().remove()
+        errorsSummary.show()
 
 module.exports =
     Summary
