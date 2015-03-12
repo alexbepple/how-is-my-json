@@ -30,12 +30,13 @@ var storeSchema = function () {
 	localStorage.setItem('schema', schemaEditor.getString());
 };
 
-var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
 var defaults = require('./defaults.ls');
-
 var loadUserContent = function (key, jsonEditor, defaultAsObject) {
-	var defaultToExample = r.defaultTo(jsonToString(defaultAsObject));
-	jsonEditor.setString(defaultToExample(localStorage.getItem(key)));
+    var storedValue = localStorage.getItem(key);
+    if (storedValue)
+        jsonEditor.setString(storedValue);
+    else
+        jsonEditor.setJson(defaultAsObject);
 };
 
 loadUserContent('json', jsonEditor, defaults.json);

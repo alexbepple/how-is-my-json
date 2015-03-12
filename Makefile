@@ -22,6 +22,9 @@ prod:
 push-to-gh-pages:
 	woodhouse publish alexbepple/how-is-my-json $(prod_build): --auth-token $(GH_AUTH_TOKEN)
 
+go: prod test
+	git commit --verbose --all
+
 
 build-clean:
 	rm -rf $(build)

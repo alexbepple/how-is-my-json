@@ -6,6 +6,7 @@ var JsonEditor = function (elementId) {
     var textarea = editor.getElementsByTagName('textarea')[0];
     var $textarea = $(textarea);
 
+    var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
     var parse = r.pipe(stripComments, JSON.parse);
     var isValid = function () {
         try {
@@ -36,13 +37,15 @@ var JsonEditor = function (elementId) {
 	var getJson = function () {
 		return parse(getString());
 	};
+    var setJson = function (json) {
+        setString(jsonToString(json));
+    };
 
     var highlightUnparseableJson = function () {
         $textarea.toggleClass('unparseable', !isValid());
     };
 	onChange(highlightUnparseableJson);
 
-    var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
     var reformat = r.pipe(getJson, jsonToString, setString);
     var reformatButton = $(editor).find('.button');
     var enableReformatButton = function () {
@@ -57,7 +60,8 @@ var JsonEditor = function (elementId) {
 		onChange: onChange,
 		setString: setString,
 		getString: getString,
-		getJson: getJson
+		getJson: getJson,
+        setJson: setJson
 	};
 };
 
