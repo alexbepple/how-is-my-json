@@ -11,22 +11,20 @@ html
 
     main
       #inputs
-        section.jsonEditor
+        section#json.jsonEditor
           header
             h2 JSON
-            if env == 'dev'
-              ul
-                li
-                  span.fa.fa-indent.button
-          textarea#jsonToValidate
-        section.jsonEditor
+            ul
+              li
+                span.fa.fa-indent.button
+          textarea
+        section#schema.jsonEditor
           header
             h2 JSON Schema
-            if env == 'dev'
-              ul
-                li
-                  span.fa.fa-indent.button
-          textarea#schema
+            ul
+              li
+                span.fa.fa-indent.button
+          textarea
 
       include results
 

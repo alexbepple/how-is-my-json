@@ -2,7 +2,7 @@ var r = require('ramda');
 var _$ = require('./jQueryHelper');
 
 var JsonEditor = require('./jsonEditor');
-var jsonEditor = JsonEditor('jsonToValidate');
+var jsonEditor = JsonEditor('json');
 var schemaEditor = JsonEditor('schema');
 
 var summary = require('./summary.ls')();

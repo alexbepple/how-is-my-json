@@ -3,7 +3,8 @@ var _$ = require('./jQueryHelper');
 var stripComments = require('strip-json-comments');
 
 var JsonEditor = function (elementId) {
-    var textarea = document.getElementById(elementId);
+    var editor = document.getElementById(elementId);
+    var textarea = editor.getElementsByTagName('textarea')[0];
     var $textarea = $(textarea);
 
     var parse = r.pipe(stripComments, JSON.parse);
@@ -16,10 +17,6 @@ var JsonEditor = function (elementId) {
         }
     };
 
-    var validateJson = function () {
-        _$.setCssClass($textarea, 'unparseable', isValid());
-    };
-
 	var onChange = function (listener) {
 		textarea.addEventListener('input', listener);
 	};
@@ -28,7 +25,7 @@ var JsonEditor = function (elementId) {
 	};
 
 	var setString = function (value) {
-		textarea.textContent = value;
+		textarea.value = value;
 		emitChangeEvent();
 	};
 	var getString = function () {
@@ -38,7 +35,20 @@ var JsonEditor = function (elementId) {
 		return parse(getString());
 	};
 
-	onChange(validateJson);
+    var highlightUnparseableJson = function () {
+        _$.setCssClass($textarea, 'unparseable', isValid());
+    };
+	onChange(highlightUnparseableJson);
+
+    var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
+    var reformat = r.pipe(getJson, jsonToString, setString);
+    var enableButton = function () {
+        _$.setCssClass($(editor).find('.button'), 'enabled', !isValid());
+        $(editor).find('.button').unbind('click');
+        if (isValid())
+            $(editor).find('.button').click(reformat);
+    };
+    onChange(enableButton);
 
 	return {
 		isValid: isValid,

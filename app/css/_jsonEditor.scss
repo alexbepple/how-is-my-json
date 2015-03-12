@@ -15,13 +15,18 @@
         h2 { font-size: inherit; }
         li {
             display: inline;
-            color: $dark-gray1;
         }
     }
 
-    .button:hover {
-        color: $blue;
-        cursor: pointer;
+    .button {
+        color: $dark-gray2;
+        &.enabled {
+            color: $dark-gray1;
+            &:hover {
+                color: $blue;
+                cursor: pointer;
+            }
+        }
     }
 }
 
