@@ -1,4 +1,6 @@
 #results {
+    @include fill-vertically-with('#validationResult');
+
     header {
         @include section-header;
     }
@@ -14,13 +16,5 @@
 
     &.greyed-out {
         opacity: 0.3;
-    }
-}
-
-#results {
-	display: flex;
-	flex-direction: column;
-    #validationResult {
-        flex: 1;
     }
 }

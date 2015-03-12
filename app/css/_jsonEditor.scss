@@ -1,11 +1,5 @@
-
 .jsonEditor {
-    /* maximize textarea within section */
-	display: flex;
-	flex-direction: column;
-    textarea {
-        flex: 1;
-    }
+    @include fill-vertically-with(textarea);
 
     header {
         display: flex;

@@ -1,0 +1,15 @@
+@mixin fill-horizontally($what, $with) {
+    #{$what} { @include fill-horizontally-with($with); }
+}
+@mixin fill-vertically($what, $with) {
+    #{$what} { @include fill-vertically-with($with); }
+}
+
+@mixin fill-horizontally-with($with) {
+    display: flex;
+    #{$with} { flex: 1; }
+}
+@mixin fill-vertically-with($with) {
+    @include fill-horizontally-with($with);
+    flex-direction: column;
+}

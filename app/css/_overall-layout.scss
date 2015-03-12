@@ -2,35 +2,7 @@ html, body {
     height: 100%;
 }
 
-/*
- * vertically maximize <main>
- */
-body {
-    display: flex;
-	flex-direction: column;
-    main {
-        flex: 1;
-    }
-}
-
-/*
- * let <div>s in <main> use up all horizontal space
- */
-main {
-    display: flex;
-    div {
-        flex: 1;
-    }
-}
-
-/*
- * let the content elements use up all the vertical space
- */
-#inputs {
-	display: flex;
-	flex-direction: column;
-    section {
-        flex: 1;
-    }
-}
+@include fill-vertically(body, $with: main);
+@include fill-horizontally(main, $with: div);
+@include fill-vertically('#inputs', $with: section);
 
