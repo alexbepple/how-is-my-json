@@ -38,7 +38,7 @@ html-continuously:
 css := $(app)/css
 css_bundle := $(build)/app.css
 css:
-	$(bin)/node-sass $(css)/main.scss --stdout | $(bin)/cleancss -o $(css_bundle)
+	$(bin)/node-sass $(css)/index.scss --stdout | $(bin)/cleancss -o $(css_bundle)
 	$(bin)/autoprefixer $(css_bundle)
 css-continuously:
 	$(nodemon) --exec 'make css' --watch $(css) --ext scss
@@ -47,7 +47,7 @@ css-continuously:
 src := $(app)/src
 js_bundle := $(build)/app.js
 js:
-	$(bin)/browserify -t liveify $(src)/main.js -o $(js_bundle)
+	$(bin)/browserify -t liveify $(src)/index.js -o $(js_bundle)
 js-uglify:
 	$(bin)/uglifyjs $(js_bundle) -o $(js_bundle) --mangle
 js-continuously:
