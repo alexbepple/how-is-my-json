@@ -1,5 +1,4 @@
 var r = require('ramda');
-var _$ = require('./jQueryHelper');
 
 var JsonEditor = require('./jsonEditor');
 var jsonEditor = JsonEditor('json');
@@ -17,7 +16,7 @@ var revalidate = function () {
     } else {
         summary.showUnmetPreconditions();
     }
-	_$.setCssClass($('#validationResult'), 'greyed-out', bothInputsValid);
+	$('#validationResult').toggleClass('greyed-out', !bothInputsValid);
 };
 
 jsonEditor.onChange(revalidate);

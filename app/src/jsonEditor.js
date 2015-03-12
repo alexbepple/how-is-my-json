@@ -1,5 +1,4 @@
 var r = require('ramda');
-var _$ = require('./jQueryHelper');
 var stripComments = require('strip-json-comments');
 
 var JsonEditor = function (elementId) {
@@ -10,7 +9,7 @@ var JsonEditor = function (elementId) {
     var parse = r.pipe(stripComments, JSON.parse);
     var isValid = function () {
         try {
-            parse(textarea.value);
+            getJson();
             return true;
         } catch (e) {
             return false;
@@ -24,31 +23,34 @@ var JsonEditor = function (elementId) {
 		textarea.dispatchEvent(new Event('input'));
 	};
 
-	var setString = function (value) {
+	var _setString = function (value) {
 		textarea.value = value;
-		emitChangeEvent();
 	};
 	var getString = function () {
 		return textarea.value;
+	};
+	var setString = function (value) {
+		_setString(value);
+		emitChangeEvent();
 	};
 	var getJson = function () {
 		return parse(getString());
 	};
 
     var highlightUnparseableJson = function () {
-        _$.setCssClass($textarea, 'unparseable', isValid());
+        $textarea.toggleClass('unparseable', !isValid());
     };
 	onChange(highlightUnparseableJson);
 
     var jsonToString = function (json) { return JSON.stringify(json, null, 4); };
     var reformat = r.pipe(getJson, jsonToString, setString);
-    var enableButton = function () {
-        _$.setCssClass($(editor).find('.button'), 'enabled', !isValid());
-        $(editor).find('.button').unbind('click');
-        if (isValid())
-            $(editor).find('.button').click(reformat);
+    var reformatButton = $(editor).find('.button');
+    var enableReformatButton = function () {
+        reformatButton.toggleClass('enabled', isValid());
+        reformatButton.unbind('click');
+        if (isValid()) reformatButton.bind('click', reformat);
     };
-    onChange(enableButton);
+    onChange(enableReformatButton);
 
 	return {
 		isValid: isValid,
