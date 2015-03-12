@@ -9,23 +9,30 @@
   <body>
     <header>How is my JSON?</header>
     <main>
-      <div id="validationInputs">
-        <h2>JSON</h2>
-        <textarea id="jsonToValidate"></textarea>
-        <h2>JSON Schema</h2>
-        <textarea id="schema"></textarea>
+      <div id="inputs">
+        <section id="json" class="jsonEditor">
+          <header>
+            <h2>JSON</h2>
+            <ul>
+              <li><span class="fa fa-indent button"></span></li>
+            </ul>
+          </header>
+          <textarea></textarea>
+        </section>
+        <section id="schema" class="jsonEditor">
+          <header>
+            <h2>JSON Schema</h2>
+            <ul>
+              <li><span class="fa fa-indent button"></span></li>
+            </ul>
+          </header>
+          <textarea></textarea>
+        </section>
       </div>
       <div id="results">
         <header>
-          <div class="summary invalid">
-            <ul>
-              <li class="validation-wrong-type"><span id="countWrongType"></span> wrong
-              </li>
-              <li class="validation-missing"><span class="separator"> / </span><span id="countMissing"></span> missing
-              </li>
-              <li class="validation-additional"><span class="separator"> / </span><span id="countAdditional"></span> additional
-              </li>
-            </ul>
+          <div class="summary errors">
+            <ul></ul>
           </div>
           <div class="summary valid"><span class="icon fa fa-check"></span> That’s some good-looking JSON.
           </div>
