@@ -33,7 +33,7 @@ a {
 	text-decoration: none;
 }
 
-header {
+body > header {
     @include default-padding;
     background: $dark-gray1;
     color: white;

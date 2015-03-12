@@ -7,8 +7,21 @@
         flex: 1;
     }
 
-    h2 {
+    header {
+        display: flex;
+        ul { margin-left: auto; }
+
         @include section-header;
+        h2 { font-size: inherit; }
+        li {
+            display: inline;
+            color: $dark-gray1;
+        }
+    }
+
+    .button:hover {
+        color: $blue;
+        cursor: pointer;
     }
 }
 
