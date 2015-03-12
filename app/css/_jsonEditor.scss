@@ -1,5 +1,15 @@
-#inputs h2 {
-    @include section-header;
+
+.jsonEditor {
+    /* maximize textarea within section */
+	display: flex;
+	flex-direction: column;
+    textarea {
+        flex: 1;
+    }
+
+    h2 {
+        @include section-header;
+    }
 }
 
 $textarea-border-style: 2px solid;
@@ -12,8 +22,8 @@ textarea {
     border: none;
     border-top: $textarea-border;
     border-left: $textarea-border;
-
 }
+
 .unparseable {
     border: $textarea-border-style $red;
 }

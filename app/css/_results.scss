@@ -10,9 +10,17 @@
 #validationResult {
     @include default-padding;
     background: $gray2;
+	overflow: auto;
 
     &.greyed-out {
         opacity: 0.3;
     }
 }
 
+#results {
+	display: flex;
+	flex-direction: column;
+    #validationResult {
+        flex: 1;
+    }
+}

@@ -24,16 +24,13 @@ main {
 }
 
 /*
- * let main content elements use up all the space
+ * let the content elements use up all the vertical space
  */
-main > div {
+#inputs {
 	display: flex;
 	flex-direction: column;
-    textarea, #validationResult {
+    section {
         flex: 1;
     }
 }
 
-#validationResult {
-	overflow: auto;
-}
