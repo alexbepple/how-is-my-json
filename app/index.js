@@ -4,7 +4,7 @@ var JsonEditor = require('./jsonEditor');
 var jsonEditor = JsonEditor('json');
 var schemaEditor = JsonEditor('schema');
 
-var summary = require('./src/summary.ls')();
+var summary = require('./summary/index.ls')();
 
 var highlighter = require('./src/imjv-highlighter');
 var revalidate = function () {
