@@ -4,7 +4,7 @@
     header {
         @include section-header;
     }
-    @import 'json';
+    @import '../visualizer/json';
 }
 
 @import '../summary/_';

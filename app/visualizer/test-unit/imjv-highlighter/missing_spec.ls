@@ -1,5 +1,5 @@
 require! {
-	'imjv-highlighter/missing':h
+	'visualizer/imjv-highlighter/missing':h
 	ramda:r
 	{assertThat, everyItem, hasProperty, defined}: hamjest
 }

@@ -46,7 +46,6 @@ css-continuously:
 	$(nodemon) --exec 'make css' --watch $(app) --ext scss
 
 
-src := $(app)/src
 js_bundle := $(build)/app.js
 js:
 	$(bin)/browserify -t liveify $(app)/index.js -o $(js_bundle)
@@ -56,10 +55,9 @@ js-continuously:
 	$(nodemon) --exec 'make js' --watch $(app) --ext ls,js
 
 
-test := test
-run_tests := $(bin)/mocha --check-leaks --recursive $(test) --compilers ls:LiveScript
+run_tests := $(bin)/mocha --check-leaks --compilers ls:LiveScript app/**/*_spec.ls
 .PHONY: test
 test:
-	NODE_PATH=$(src) $(run_tests) --reporter mocha-unfunk-reporter $(args)
+	NODE_PATH=$(app) $(run_tests) --reporter mocha-unfunk-reporter $(args)
 tdd:
-	$(nodemon) --exec 'make test' --watch $(app) --watch $(test) --ext ls,js
+	$(nodemon) --exec 'make test' --watch $(app) --ext ls,js

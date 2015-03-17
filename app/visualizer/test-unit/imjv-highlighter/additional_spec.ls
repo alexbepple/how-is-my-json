@@ -1,5 +1,5 @@
 require! {
-    'imjv-highlighter/additional':h
+    'visualizer/imjv-highlighter/additional':h
     ramda:r
     {assertThat, equalTo, hasSize}: hamjest
 }

@@ -6,7 +6,7 @@ var schemaEditor = JsonEditor('schema');
 
 var summary = require('./summary/index.ls')();
 
-var highlighter = require('./src/imjv-highlighter');
+var highlighter = require('./visualizer/imjv-highlighter');
 var revalidate = function () {
     var bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid();
     if (bothInputsValid) {
