@@ -23,7 +23,7 @@ push-to-gh-pages:
 	woodhouse publish alexbepple/how-is-my-json $(prod_build): --auth-token $(GH_AUTH_TOKEN)
 
 go: prod test
-	git commit --verbose --all
+	git add -A :/ && git commit --verbose
 
 
 build-clean:
@@ -50,11 +50,11 @@ css-continuously:
 src := $(app)/src
 js_bundle := $(build)/app.js
 js:
-	$(bin)/browserify -t liveify $(src)/index.js -o $(js_bundle)
+	$(bin)/browserify -t liveify $(app)/index.js -o $(js_bundle)
 js-uglify:
 	$(bin)/uglifyjs $(js_bundle) -o $(js_bundle) --mangle
 js-continuously:
-	$(nodemon) --exec 'make js' --watch $(src) --ext ls,js
+	$(nodemon) --exec 'make js' --watch $(app) --ext ls,js
 
 
 test := test
@@ -63,4 +63,4 @@ run_tests := $(bin)/mocha --check-leaks --recursive $(test) --compilers ls:LiveS
 test:
 	NODE_PATH=$(src) $(run_tests) --reporter mocha-unfunk-reporter $(args)
 tdd:
-	$(nodemon) --exec 'make test' --watch $(src) --watch $(test) --ext ls,js
+	$(nodemon) --exec 'make test' --watch $(app) --watch $(test) --ext ls,js

@@ -4,9 +4,9 @@ var JsonEditor = require('./jsonEditor');
 var jsonEditor = JsonEditor('json');
 var schemaEditor = JsonEditor('schema');
 
-var summary = require('./summary.ls')();
+var summary = require('./src/summary.ls')();
 
-var highlighter = require('./imjv-highlighter');
+var highlighter = require('./src/imjv-highlighter');
 var revalidate = function () {
     var bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid();
     if (bothInputsValid) {
@@ -30,7 +30,7 @@ var storeSchema = function () {
 	localStorage.setItem('schema', schemaEditor.getString());
 };
 
-var defaults = require('./defaults.ls');
+var defaults = require('./src/defaults.ls');
 var loadUserContent = function (key, jsonEditor, defaultAsObject) {
     var storedValue = localStorage.getItem(key);
     if (storedValue)
