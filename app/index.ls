@@ -6,7 +6,7 @@ schemaEditor = JsonEditor('schema')
 
 summary = require('./summary/_.ls')()
 
-highlighter = require('./visualizer/imjv-highlighter')
+highlighter = require('./visualizer/imjv-highlighter/_.ls')
 revalidate = ->
     bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid()
     if bothInputsValid

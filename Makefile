@@ -52,7 +52,7 @@ js:
 js-uglify:
 	$(bin)/uglifyjs $(js_bundle) -o $(js_bundle) --mangle
 js-continuously:
-	$(nodemon) --exec 'make js' --watch $(app) --ext ls,js
+	$(nodemon) --exec 'make js' --watch $(app) --ext ls
 
 
 run_tests := $(bin)/mocha --check-leaks --compilers ls:LiveScript app/**/*_spec.ls
@@ -60,4 +60,4 @@ run_tests := $(bin)/mocha --check-leaks --compilers ls:LiveScript app/**/*_spec.
 test:
 	NODE_PATH=$(app) $(run_tests) --reporter mocha-unfunk-reporter $(args)
 tdd:
-	$(nodemon) --exec 'make test' --watch $(app) --ext ls,js
+	$(nodemon) --exec 'make test' --watch $(app) --ext ls
