@@ -17,8 +17,7 @@ JsonEditor = (elementId) ->
 
     onChange = -> textarea.addEventListener('input', it)
 
-    emitChangeEvent = ->
-        textarea.dispatchEvent(new Event('input'))
+    emitChangeEvent = -> textarea.dispatchEvent new Event('input')
 
     _setString = -> textarea.value = it
     getString = -> textarea.value
@@ -26,22 +25,21 @@ JsonEditor = (elementId) ->
         _setString(it)
         emitChangeEvent()
 
-    getJson = -> parse(getString())
-    setJson = -> setString(jsonToString(it))
+    getJson = -> parse getString()
+    setJson = -> setString jsonToString(it)
 
-    highlightUnparseableJson = ->
-        $textarea.toggleClass('unparseable', !isValid())
+    highlightUnparseableJson = -> $textarea.toggleClass 'unparseable', !isValid()
     onChange highlightUnparseableJson
 
-    reformat = r.pipe(getJson, jsonToString, setString)
-    reformatButton = $(editor).find('.button')
+    reformat = r.pipe getJson, jsonToString, setString
+    reformatButton = $(editor).find '.button'
     enableReformatButton = ->
-        reformatButton.toggleClass('enabled', isValid())
-        reformatButton.unbind('click')
+        reformatButton.toggleClass 'enabled', isValid()
+        reformatButton.unbind 'click'
         if isValid()
-            reformatButton.bind('click', reformat)
+            reformatButton.bind 'click', reformat
 
-    onChange(enableReformatButton)
+    onChange enableReformatButton
 
     {
         isValid
