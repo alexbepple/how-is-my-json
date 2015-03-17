@@ -4,7 +4,7 @@ var m = require('./misc');
 var addPathTo = require('./missing').addPathTo;
 var additional = require('./additional');
 
-var jsonToDom = require('../jsonToDom');
+var jsonToDom = require('../jsonToDom.ls');
 var removeAllChildren = function (node) {
     while (node.firstChild) {
         node.removeChild(node.firstChild);
