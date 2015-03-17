@@ -4,7 +4,7 @@ JsonEditor = require('./jsonEditor/_.ls')
 jsonEditor = JsonEditor('json')
 schemaEditor = JsonEditor('schema')
 
-summary = require('./summary/index.ls')()
+summary = require('./summary/_.ls')()
 
 highlighter = require('./visualizer/imjv-highlighter')
 revalidate = ->
