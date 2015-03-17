@@ -1,6 +1,6 @@
 r = require('ramda')
 
-JsonEditor = require('./jsonEditor')
+JsonEditor = require('./jsonEditor/_.ls')
 jsonEditor = JsonEditor('json')
 schemaEditor = JsonEditor('schema')
 
