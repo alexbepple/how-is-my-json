@@ -1,11 +1,11 @@
-@import 'generic/flexbox';
+@import 'css/generic/flexbox';
 
 * {
     margin: 0;
     padding: 0;
 }
 
-@import 'colors';
+@import 'css/colors';
 
 @mixin default-padding {
     padding: 5px 10px;
@@ -21,7 +21,7 @@
 }
 
 
-@import 'overall-layout';
+@import 'css/overall-layout';
 $section-border: 1px solid $dark-gray1;
 #inputs {
     border-right: $section-border;
@@ -48,6 +48,6 @@ body > header {
 main {
     background: $gray2;
 }
-@import 'jsonEditor';
-@import 'results';
-@import 'footer';
+@import 'jsonEditor/_';
+@import 'css/results';
+@import 'css/footer';

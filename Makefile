@@ -38,13 +38,12 @@ html:
 html-continuously:
 	make html args='--watch'
 
-css := $(app)/css
 css_bundle := $(build)/app.css
 css:
-	$(bin)/node-sass $(css)/index.scss --stdout | $(bin)/cleancss -o $(css_bundle)
+	$(bin)/node-sass $(app)/index.scss --stdout | $(bin)/cleancss -o $(css_bundle)
 	$(bin)/autoprefixer $(css_bundle)
 css-continuously:
-	$(nodemon) --exec 'make css' --watch $(css) --ext scss
+	$(nodemon) --exec 'make css' --watch $(app) --ext scss
 
 
 src := $(app)/src
