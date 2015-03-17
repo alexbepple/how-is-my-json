@@ -1,0 +1,8 @@
+mixin jsonEditor(id, title)
+  section(id=id).jsonEditor
+    header
+      h2= title
+      ul
+        li
+          span.fa.fa-indent.button(title='Reformat')
+    textarea

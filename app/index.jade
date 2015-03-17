@@ -1,3 +1,5 @@
+include jsonEditor/index
+
 doctype html
 html
   head
@@ -11,20 +13,8 @@ html
 
     main
       #inputs
-        section#json.jsonEditor
-          header
-            h2 JSON
-            ul
-              li
-                span.fa.fa-indent.button(title='Reformat')
-          textarea
-        section#schema.jsonEditor
-          header
-            h2 JSON Schema
-            ul
-              li
-                span.fa.fa-indent.button(title='Reformat')
-          textarea
+        +jsonEditor('json', 'JSON')
+        +jsonEditor('schema', 'JSON Schema')
 
       include html/results
 
