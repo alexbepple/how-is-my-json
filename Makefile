@@ -48,7 +48,7 @@ css-continuously:
 
 js_bundle := $(build)/app.js
 js:
-	$(bin)/browserify -t liveify $(app)/index.js -o $(js_bundle)
+	$(bin)/browserify -t liveify $(app)/index.ls -o $(js_bundle)
 js-uglify:
 	$(bin)/uglifyjs $(js_bundle) -o $(js_bundle) --mangle
 js-continuously:
