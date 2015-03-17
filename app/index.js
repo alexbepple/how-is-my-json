@@ -30,7 +30,7 @@ var storeSchema = function () {
 	localStorage.setItem('schema', schemaEditor.getString());
 };
 
-var defaults = require('./src/defaults.ls');
+var defaults = require('./defaults.ls');
 var loadUserContent = function (key, jsonEditor, defaultAsObject) {
     var storedValue = localStorage.getItem(key);
     if (storedValue)

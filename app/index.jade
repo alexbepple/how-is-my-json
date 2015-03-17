@@ -16,7 +16,7 @@ html
         +jsonEditor('json', 'JSON')
         +jsonEditor('schema', 'JSON Schema')
 
-      include html/results
+      include results/_
 
     include footer/_
 
@@ -25,4 +25,4 @@ html
 
     if env == 'prod'
       script
-        include html/google-analytics.js
+        include google-analytics.js
