@@ -26,13 +26,13 @@ html
                 span.fa.fa-indent.button(title='Reformat')
           textarea
 
-      include results
+      include html/results
 
-    include footer
+    include html/footer
 
     script(src=jQuery)
     script(src='app.js')
 
     if env == 'prod'
       script
-        include google-analytics.js
+        include html/google-analytics.js
