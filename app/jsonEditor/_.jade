@@ -4,7 +4,6 @@ mixin jsonEditor(id, title)
       h2= title
       ul
         li
-          if env == 'dev'
-            span.fa.fa-plus-circle.button.prohibitAdditionalProps(title='Inject "additionalProperties: false"')
+          span.fa.fa-plus-circle.button.prohibitAdditionalProps(title='Inject "additionalProperties: false"')
           span.fa.fa-indent.button.reformat(title='Reformat')
     textarea
