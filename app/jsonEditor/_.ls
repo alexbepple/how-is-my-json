@@ -1,5 +1,6 @@
 r = require('ramda')
 stripComments = require('strip-json-comments')
+schemaEnhancer = require '../schema/schemaEnhancer.ls'
 
 JsonEditor = (elementId) ->
     editor = document.getElementById(elementId)
@@ -31,15 +32,21 @@ JsonEditor = (elementId) ->
     highlightUnparseableJson = -> $textarea.toggleClass 'unparseable', !isValid()
     onChange highlightUnparseableJson
 
-    reformat = r.pipe getJson, jsonToString, setString
-    reformatButton = $(editor).find '.button'
-    enableReformatButton = ->
-        reformatButton.toggleClass 'enabled', isValid()
-        reformatButton.unbind 'click'
-        if isValid()
-            reformatButton.bind 'click', reformat
 
-    onChange enableReformatButton
+    onClick = (buttonSelector, onClick) ->
+        button = $(editor).find buttonSelector
+        setButtonState = ->
+            button.toggleClass 'enabled', isValid()
+            button.unbind 'click'
+            if isValid()
+                button.bind 'click', onClick
+        onChange setButtonState
+
+    onClick '.button.reformat',
+        r.pipe getJson, jsonToString, setString
+
+    onClick '.button.prohibitAdditionalProps',
+        r.pipe getJson, schemaEnhancer.prohibitAdditionalProperties, setJson
 
     {
         isValid
