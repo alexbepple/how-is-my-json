@@ -34,18 +34,16 @@ JsonEditor = (elementId) ->
 
 
     onClick = (buttonSelector, onClick) ->
-        button = $(editor).find buttonSelector
+        $button = $(editor).find 'button.'+buttonSelector
+        $button.bind 'click', onClick
         setButtonState = ->
-            button.toggleClass 'enabled', isValid()
-            button.unbind 'click'
-            if isValid()
-                button.bind 'click', onClick
+            $button.prop 'disabled', !isValid()
         onChange setButtonState
 
-    onClick '.button.reformat',
+    onClick 'reformat',
         r.pipe getJson, jsonToString, setString
 
-    onClick '.button.prohibitAdditionalProps',
+    onClick 'prohibitAdditionalProps',
         r.pipe getJson, schemaEnhancer.prohibitAdditionalProperties, setJson
 
     {

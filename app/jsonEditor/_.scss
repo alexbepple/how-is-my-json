@@ -12,15 +12,16 @@
         }
     }
 
-    .button {
+    button {
         margin-left: 10px;
-        color: $dark-gray2;
-        &.enabled {
-            color: $dark-gray1;
-            &:hover {
-                color: $blue;
-                cursor: pointer;
-            }
+        color: $dark-gray1;
+        cursor: pointer;
+        background: none;
+        border: none;
+        &:hover { color: $blue; }
+        &:disabled {
+            color: $dark-gray2;
+            cursor: default;
         }
     }
 }
