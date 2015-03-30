@@ -1,8 +1,6 @@
 require! {
-    'is-my-json-valid': validator
     ramda: r
     'strip-json-comments': stripComments
-    '../schema/schemaEnhancer.ls': schemaEnhancer
 }
 
 JsonEditor = (elementId) ->
@@ -46,24 +44,14 @@ JsonEditor = (elementId) ->
     onClick 'reformat',
         r.pipe getJson, jsonToString, setString
 
-    onClick 'prohibitAdditionalProps',
-        r.pipe getJson, schemaEnhancer.prohibitAdditionalProperties, setJson
-
-    isSchemaValid = ->
-        try
-            validator getJson()
-            return true
-        catch
-            return false
-
     {
         isValid
-        isSchemaValid
         onChange
         setString
         getString
         getJson
         setJson
+        onClick
     }
 
 module.exports = JsonEditor

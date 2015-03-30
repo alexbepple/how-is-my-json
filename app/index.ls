@@ -1,8 +1,9 @@
 r = require('ramda')
-
 JsonEditor = require('./jsonEditor/_.ls')
+SchemaEditor = require('./schemaEditor/_.ls')
+
 jsonEditor = JsonEditor('json')
-schemaEditor = JsonEditor('schema')
+schemaEditor = SchemaEditor('schema')
 
 summary = require('./summary/_.ls')()
 visualizer = require('./visualizer/_.ls')

@@ -14,8 +14,7 @@ html
     main
       #inputs
         +jsonEditor('json', 'JSON')
-        +jsonEditor('schema', 'JSON Schema')
-          button.fa.fa-plus-circle.prohibitAdditionalProps(title='Inject "additionalProperties: false"')
+        include schemaEditor/_
 
       include results/_
 
