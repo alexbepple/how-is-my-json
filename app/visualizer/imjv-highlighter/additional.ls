@@ -29,7 +29,7 @@ objectPathToSchemaPath = (objectPath) ->
 propertiesInSchema = r.useWith(
     propertiesInObject, r.identity, objectPathToSchemaPath)
 
-selectorsForAdditionalProperties = (schema, json, errors) ->
+selectors = (schema, json, errors) ->
     hasAdditionalProperties = r.propEq 'message', 'has additional properties'
     additionalSubpaths = pathsOfAdditionalProperties(
         propertiesInObject json
@@ -45,7 +45,7 @@ selectorsForAdditionalProperties = (schema, json, errors) ->
     )(errors)
 
 module.exports = {
-    selectorsForAdditionalProperties
+    selectors
     propertiesInObject
     objectPathToSchemaPath
     pathsOfAdditionalProperties

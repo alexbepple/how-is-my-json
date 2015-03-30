@@ -1,4 +1,7 @@
-r = require('ramda')
+require! {
+    ramda: r
+    './misc.ls': m
+}
 
 dropLastChar = r.pipe(r.split(''), r.init, r.join(''))
 addPathTo = (object, path) ->
@@ -18,6 +21,23 @@ addPathTo = (object, path) ->
 
 addPath = r.flip addPathTo
 
+addPropertiesTo = (json, errors) ->
+    r.pipe(
+        r.filter(isMissing)
+        r.map(m.errorToPathComponents)
+        r.map(r.join('.'))
+        r.reduce(addPathTo, json)
+    )(errors)
+
+isMissing = r.propEq 'message', 'is required'
+selectors = (errors) ->
+    r.pipe(
+        r.filter(isMissing)
+        m.errorsToSelectors
+    )(errors)
+
 module.exports = {
     addPathTo
+    selectors
+    addPropertiesTo
 }

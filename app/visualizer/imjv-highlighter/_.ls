@@ -1,11 +1,11 @@
 require! {
     'is-my-json-valid': validator
     ramda: r
-    './misc.ls': m
+    './wrongType.ls': wrongType
+    './missing.ls': missing
     './additional.ls': additional
     '../jsonToDom.ls': jsonToDom
 }
-addPathTo = require('./missing.ls').addPathTo
 
 removeAllChildren = (node) ->
     while (node.firstChild)
@@ -16,6 +16,9 @@ displayJson = (json) ->
     removeAllChildren resultContainer
     resultContainer.appendChild jsonToDom(json)
 
+addClass = (cssClass, selectors) ->
+    $(r.join(',', selectors)).addClass(cssClass)
+
 validateJsonAgainstSchema = (json, schema, summary) ->
     validate = validator schema
     isValid = validate json
@@ -25,32 +28,11 @@ validateJsonAgainstSchema = (json, schema, summary) ->
         displayJson json
         return
 
-    isWrongType = r.propEq 'message', 'is the wrong type'
-    selectorsWrongType = r.pipe(
-        r.filter(isWrongType)
-        m.errorsToSelectors
-    )(validate.errors)
+    displayJson missing.addPropertiesTo(json, validate.errors)
 
-    isMissing = r.propEq 'message', 'is required'
-    selectorsMissing = r.pipe(
-        r.filter(isMissing)
-        m.errorsToSelectors
-    )(validate.errors)
-
-    jsonWithMissingProperties = r.pipe(
-        r.filter(isMissing)
-        r.map(m.errorToPathComponents)
-        r.map(r.join('.'))
-        r.reduce(addPathTo, json)
-    )(validate.errors)
-
-    displayJson jsonWithMissingProperties
-
-    addClass = (cssClass, selectors) ->
-        $(r.join(',', selectors)).addClass(cssClass)
-
-    selectorsAdditional = additional
-        .selectorsForAdditionalProperties(schema, json, validate.errors)
+    selectorsWrongType = wrongType.selectors validate.errors
+    selectorsMissing = missing.selectors validate.errors
+    selectorsAdditional = additional.selectors schema, json, validate.errors
 
     addClass 'validation-wrong-type', selectorsWrongType
     addClass 'validation-missing', selectorsMissing

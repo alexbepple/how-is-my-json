@@ -9,9 +9,8 @@ describe 'Highlighter' ->
         relevantSchemaExcerpt = properties: {a: {properties: {}}}
         json = a: {a: 1}
         imjvErrors = [ { field: 'data.a', message: 'has additional properties' } ]
-        assertThat h.selectorsForAdditionalProperties(
-            relevantSchemaExcerpt, json, imjvErrors
-        ), equalTo ['.a .a']
+        assertThat h.selectors(relevantSchemaExcerpt, json, imjvErrors),
+            equalTo ['.a .a']
 
     specify 'only returns unique selectors' ->
         relevantSchemaExcerpt = properties: {}
@@ -19,9 +18,8 @@ describe 'Highlighter' ->
         imjvErrors =
             * field: 'data', message: 'has additional properties'
             * field: 'data', message: 'has additional properties'
-        assertThat h.selectorsForAdditionalProperties(
-            relevantSchemaExcerpt, json, imjvErrors
-        ), hasSize 1
+        assertThat h.selectors(relevantSchemaExcerpt, json, imjvErrors),
+            hasSize 1
 
     describe 'lists properties' ->
         specify 'at top level' ->
