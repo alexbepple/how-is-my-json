@@ -3,7 +3,8 @@
 
     li { display: inline; }
     .separator { color: $dark-text-color; }
+
+    .icon { margin-right: 5px; }
     &.valid .icon { color: $green; }
     &.error .icon { color: $red; }
 }
-

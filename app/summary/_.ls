@@ -4,38 +4,38 @@ require! {
 }
 
 Summary = ->
-    clearSummary = -> $('.summary').hide()
+    clear = -> $('.summary').hide()
 
-    errorsSummary = $('.summary.errors')
-    errors = errorsSummary.children 'ul'
-
-    appendErrorInfo = (value, template, cssClass) ->
+    validationErrorsSummary = $('.summary.errors')
+    validationErrors = validationErrorsSummary.find 'ul'
+    appendValidationErrorInfo = (value, template, cssClass) ->
         if value > 0
-            errors.append crel(
+            validationErrors.append crel(
                 'li', class:cssClass,
                     util.format(template, value),
                     crel 'span', class:'separator', ' / '
             )
 
     showValid: ->
-        clearSummary()
+        clear()
         $('.summary.valid').show()
 
     showError: (message) ->
-        clearSummary()
-        $('.summary.error').show()
-        $('.summary.error .message').text message
+        clear()
+        $error = $('.summary.error')
+        $error.show()
+        $error.find('.message').text message
 
     showInvalid: ({wrong, missing, additional}) ->
-        clearSummary()
-        errors.children().remove()
+        clear()
+        validationErrors.children().remove()
 
-        appendErrorInfo wrong, '%s wrong', 'validation-wrong-type'
-        appendErrorInfo missing, '%s missing', 'validation-missing'
-        appendErrorInfo additional, '%s additional', 'validation-additional'
+        appendValidationErrorInfo wrong, '%s wrong', 'validation-wrong-type'
+        appendValidationErrorInfo missing, '%s missing', 'validation-missing'
+        appendValidationErrorInfo additional, '%s additional', 'validation-additional'
 
-        errors.find('.separator').last().remove()
-        errorsSummary.show()
+        validationErrors.find('.separator').last().remove()
+        validationErrorsSummary.show()
 
 module.exports =
     Summary
