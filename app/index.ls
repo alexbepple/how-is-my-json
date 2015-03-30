@@ -9,13 +9,19 @@ summary = require('./summary/_.ls')()
 highlighter = require('./visualizer/imjv-highlighter/_.ls')
 revalidate = ->
     bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid()
-    if bothInputsValid
-        json = jsonEditor.getJson()
-        schema = schemaEditor.getJson()
-        highlighter.validateJsonAgainstSchema(json, schema, summary)
-    else
+    $('#validationResult').addClass('greyed-out')
+    unless bothInputsValid
         summary.showUnmetPreconditions()
-    $('#validationResult').toggleClass('greyed-out', !bothInputsValid)
+        return
+
+    json = jsonEditor.getJson()
+    schema = schemaEditor.getJson()
+    try
+        highlighter.validateJsonAgainstSchema(json, schema, summary)
+        $('#validationResult').removeClass('greyed-out')
+    catch
+        summary.showExceptionDuringValidation()
+        throw e
 
 
 jsonEditor.onChange(revalidate)

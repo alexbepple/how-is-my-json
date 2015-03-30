@@ -20,6 +20,9 @@ Summary = ->
     showUnmetPreconditions: ->
         clearSummary()
         $('.summary.unmet-preconditions').show()
+    showExceptionDuringValidation: ->
+        clearSummary()
+        $('.summary.exception-during-validation').show()
     showValid: ->
         clearSummary()
         $('.summary.valid').show()
