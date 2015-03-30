@@ -1,6 +1,9 @@
-r = require('ramda')
-stripComments = require('strip-json-comments')
-schemaEnhancer = require '../schema/schemaEnhancer.ls'
+require! {
+    'is-my-json-valid': validator
+    ramda: r
+    'strip-json-comments': stripComments
+    '../schema/schemaEnhancer.ls': schemaEnhancer
+}
 
 JsonEditor = (elementId) ->
     editor = document.getElementById(elementId)
@@ -46,8 +49,16 @@ JsonEditor = (elementId) ->
     onClick 'prohibitAdditionalProps',
         r.pipe getJson, schemaEnhancer.prohibitAdditionalProperties, setJson
 
+    isSchemaValid = ->
+        try
+            validator getJson()
+            return true
+        catch
+            return false
+
     {
         isValid
+        isSchemaValid
         onChange
         setString
         getString

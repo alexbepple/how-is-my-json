@@ -23,6 +23,9 @@ Summary = ->
     showExceptionDuringValidation: ->
         clearSummary()
         $('.summary.exception-during-validation').show()
+    showInvalidSchema: ->
+        clearSummary()
+        $('.summary.invalid-schema').show()
     showValid: ->
         clearSummary()
         $('.summary.valid').show()

@@ -13,6 +13,9 @@ revalidate = ->
     unless bothInputsValid
         summary.showUnmetPreconditions()
         return
+    unless schemaEditor.isSchemaValid()
+        summary.showInvalidSchema()
+        return
 
     try
         visualizer.validate(jsonEditor.getJson(), schemaEditor.getJson(), summary)
