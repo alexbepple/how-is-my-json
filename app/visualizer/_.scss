@@ -1,0 +1,8 @@
+#validationResult {
+    @include default-padding;
+    background: $gray2;
+
+    &.greyed-out { opacity: 0.3; }
+
+    @import 'json';
+}

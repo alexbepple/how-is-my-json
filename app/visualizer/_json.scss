@@ -17,7 +17,3 @@
     &::after { content: ', '; }
     &:last-of-type::after { content: none; }
 }
-
-.validation-wrong-type { color: $blue; }
-.validation-missing { color: $orange; }
-.validation-additional { color: $green; }

@@ -1,20 +1,13 @@
 #results {
-    @include fill-vertically-with('#validationResult');
+    @include fill-vertically-with('article');
+    header { @include section-header; }
 
-    header {
-        @include section-header;
-    }
-    @import '../visualizer/json';
-}
+    .validation-wrong-type { color: $blue; }
+    .validation-missing { color: $orange; }
+    .validation-additional { color: $green; }
 
-@import '../summary/_';
+    article { overflow: auto; }
 
-#validationResult {
-    @include default-padding;
-    background: $gray2;
-	overflow: auto;
-
-    &.greyed-out {
-        opacity: 0.3;
-    }
+    @import '../summary/_';
+    @import '../visualizer/_';
 }
