@@ -5,24 +5,20 @@ jsonEditor = JsonEditor('json')
 schemaEditor = JsonEditor('schema')
 
 summary = require('./summary/_.ls')()
+visualizer = require('./visualizer/_.ls')
 
-highlighter = require('./visualizer/imjv-highlighter/_.ls')
 revalidate = ->
+    visualizer.clear()
     bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid()
-    $('#validationResult').addClass('greyed-out')
     unless bothInputsValid
         summary.showUnmetPreconditions()
         return
 
-    json = jsonEditor.getJson()
-    schema = schemaEditor.getJson()
     try
-        highlighter.validateJsonAgainstSchema(json, schema, summary)
-        $('#validationResult').removeClass('greyed-out')
+        visualizer.validate(jsonEditor.getJson(), schemaEditor.getJson(), summary)
     catch
         summary.showExceptionDuringValidation()
         throw e
-
 
 jsonEditor.onChange(revalidate)
 schemaEditor.onChange(revalidate)
@@ -30,7 +26,6 @@ schemaEditor.onChange(revalidate)
 
 storeJson = -> localStorage.setItem('json', jsonEditor.getString())
 storeSchema = -> localStorage.setItem('schema', schemaEditor.getString())
-
 
 defaults = require('./defaults.ls')
 loadUserContent = (key, jsonEditor, defaultAsObject) ->

@@ -1,10 +1,10 @@
 require! {
     'is-my-json-valid': validator
     ramda: r
-    './wrongType.ls': wrongType
-    './missing.ls': missing
-    './additional.ls': additional
-    '../jsonToDom.ls': jsonToDom
+    './imjv-highlighter/wrongType.ls': wrongType
+    './imjv-highlighter/missing.ls': missing
+    './imjv-highlighter/additional.ls': additional
+    './jsonToDom.ls': jsonToDom
 }
 
 removeAllChildren = (node) ->
@@ -15,11 +15,15 @@ displayJson = (json) ->
     resultContainer = document.getElementById 'validationResult'
     removeAllChildren resultContainer
     resultContainer.appendChild jsonToDom(json)
+    showResult()
+
+clear = -> $('#validationResult').addClass('greyed-out')
+showResult = -> $('#validationResult').removeClass('greyed-out')
 
 addClass = (cssClass, selectors) ->
     $(r.join(',', selectors)).addClass(cssClass)
 
-validateJsonAgainstSchema = (json, schema, summary) ->
+validate = (json, schema, summary) ->
     validate = validator schema
     isValid = validate json
 
@@ -45,5 +49,6 @@ validateJsonAgainstSchema = (json, schema, summary) ->
     )
 
 module.exports = {
-    validateJsonAgainstSchema
+    validate
+    clear
 }
