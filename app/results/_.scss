@@ -3,7 +3,7 @@
     header { @include section-header; }
 
     .validation-wrong-type { color: $blue; }
-    .validation-missing { color: $orange; }
+    .validation-missing { color: $red; }
     .validation-additional { color: $green; }
 
     article { overflow: auto; }
