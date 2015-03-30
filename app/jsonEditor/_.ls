@@ -30,9 +30,8 @@ JsonEditor = (elementId) ->
     getJson = -> parse getString()
     setJson = -> setString jsonToString(it)
 
-    highlightUnparseableJson = -> $textarea.toggleClass 'unparseable', !isValid()
-    onChange highlightUnparseableJson
-
+    markAsInvalid = -> $textarea.toggleClass 'invalid', !isValid()
+    onChange markAsInvalid
 
     onClick = (buttonSelector, onClick) ->
         $button = $(editor).find 'button.'+buttonSelector
