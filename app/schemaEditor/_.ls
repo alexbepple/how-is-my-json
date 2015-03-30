@@ -15,6 +15,9 @@ SchemaEditor = (elementId) ->
         catch
             return false
 
+    that.isJsonValid = that.isValid
+    that.isValid = -> that.isJsonValid() && that.isSchemaValid()
+
     that.onClick 'prohibitAdditionalProps', r.pipe(
         that.getJson
         schemaEnhancer.prohibitAdditionalProperties

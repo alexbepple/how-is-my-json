@@ -10,18 +10,20 @@ visualizer = require('./visualizer/_.ls')
 
 revalidate = ->
     visualizer.clear()
-    bothInputsValid = jsonEditor.isValid() && schemaEditor.isValid()
-    unless bothInputsValid
-        summary.showUnmetPreconditions()
+    unless jsonEditor.isValid()
+        summary.showError 'Fix the JSON to be checked.'
+        return
+    unless schemaEditor.isJsonValid()
+        summary.showError 'Fix the JSON for the schema.'
         return
     unless schemaEditor.isSchemaValid()
-        summary.showInvalidSchema()
+        summary.showError 'The schema is invalid. Fix it.'
         return
 
     try
         visualizer.validate(jsonEditor.getJson(), schemaEditor.getJson(), summary)
     catch
-        summary.showExceptionDuringValidation()
+        summary.showError 'Cannot validate. Check the console.'
         throw e
 
 jsonEditor.onChange(revalidate)

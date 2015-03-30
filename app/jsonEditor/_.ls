@@ -18,7 +18,6 @@ JsonEditor = (elementId) ->
             return false
 
     onChange = -> textarea.addEventListener('input', it)
-
     emitChangeEvent = -> textarea.dispatchEvent new Event('input')
 
     _setString = -> textarea.value = it
@@ -30,9 +29,6 @@ JsonEditor = (elementId) ->
     getJson = -> parse getString()
     setJson = -> setString jsonToString(it)
 
-    markAsInvalid = -> $textarea.toggleClass 'invalid', !isValid()
-    onChange markAsInvalid
-
     onClick = (buttonSelector, onClick) ->
         $button = $(editor).find 'button.'+buttonSelector
         $button.bind 'click', onClick
@@ -40,10 +36,7 @@ JsonEditor = (elementId) ->
             $button.prop 'disabled', !isValid()
         onChange setButtonState
 
-    onClick 'reformat',
-        r.pipe getJson, jsonToString, setString
-
-    {
+    that = {
         isValid
         onChange
         setString
@@ -52,5 +45,13 @@ JsonEditor = (elementId) ->
         setJson
         onClick
     }
+
+    onClick 'reformat',
+        r.pipe getJson, jsonToString, setString
+
+    markAsInvalid = -> $textarea.toggleClass 'invalid', !that.isValid()
+    onChange markAsInvalid
+
+    that
 
 module.exports = JsonEditor

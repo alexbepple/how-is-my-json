@@ -17,18 +17,15 @@ Summary = ->
                     crel 'span', class:'separator', ' / '
             )
 
-    showUnmetPreconditions: ->
-        clearSummary()
-        $('.summary.unmet-preconditions').show()
-    showExceptionDuringValidation: ->
-        clearSummary()
-        $('.summary.exception-during-validation').show()
-    showInvalidSchema: ->
-        clearSummary()
-        $('.summary.invalid-schema').show()
     showValid: ->
         clearSummary()
         $('.summary.valid').show()
+
+    showError: (message) ->
+        clearSummary()
+        $('.summary.error').show()
+        $('.summary.error .message').text message
+
     showInvalid: ({wrong, missing, additional}) ->
         clearSummary()
         errors.children().remove()
